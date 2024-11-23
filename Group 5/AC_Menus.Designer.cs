@@ -1,6 +1,6 @@
 ﻿namespace Group_5
 {
-    partial class AC_Orders
+    partial class AC_Menus
     {
         /// <summary>
         /// Required designer variable.
@@ -30,15 +30,16 @@
         {
             this.SuspendLayout();
             // 
-            // AC_Orders
+            // AC_Menus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1425, 661);
-            this.Name = "AC_Orders";
-            this.Text = "Form1";
-            this.TopMost = true;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(790, 600);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "AC_Menus";
+            this.Text = "Form2";
+            this.Load += new System.EventHandler(this.AC_Menus_Load);
             this.ResumeLayout(false);
 
         }

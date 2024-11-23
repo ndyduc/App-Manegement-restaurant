@@ -16,7 +16,7 @@ namespace Group_5
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AC_Table());
+            Application.Run(new AC_Home());
         }
     }
 }

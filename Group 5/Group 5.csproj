@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,35 +47,74 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AC_Table.cs">
+    <Compile Include="AC_Home.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AC_Table.Designer.cs">
-      <DependentUpon>AC_Table.cs</DependentUpon>
+    <Compile Include="AC_Home.Designer.cs">
+      <DependentUpon>AC_Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="AC_Menu.cs">
+    <Compile Include="DataClasses1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="AC_Menus.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AC_Menu.Designer.cs">
-      <DependentUpon>AC_Menu.cs</DependentUpon>
+    <Compile Include="AC_Menus.Designer.cs">
+      <DependentUpon>AC_Menus.cs</DependentUpon>
     </Compile>
-    <Compile Include="AC_Orders.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AC_Orders.Designer.cs">
-      <DependentUpon>AC_Orders.cs</DependentUpon>
+    <Compile Include="NDYDUCDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NDYDUCDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shareds\GeneralFunct.cs" />
+    <EmbeddedResource Include="AC_Bill.resx">
+      <DependentUpon>AC_Bill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC_Menus.resx">
+      <DependentUpon>AC_Menus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC_Home.resx">
+      <DependentUpon>AC_Home.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="AC_Bill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AC_Bill.Designer.cs">
+      <DependentUpon>AC_Bill.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="DataClasses1.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataClasses1.dbml.layout">
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </None>
+    <None Include="NDYDUCDataSet.xsc">
+      <DependentUpon>NDYDUCDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="NDYDUCDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>NDYDUCDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NDYDUCDataSet.xss">
+      <DependentUpon>NDYDUCDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -87,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

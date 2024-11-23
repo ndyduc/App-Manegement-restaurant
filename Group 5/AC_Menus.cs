@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace Group_5
 {
-    public partial class AC_Table : Form
+    public partial class AC_Menus : Form
     {
-        public AC_Table()
+        public AC_Menus()
         {
             InitializeComponent();
+        }
+
+        private void AC_Menus_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
