@@ -174,6 +174,7 @@
             this.btn_table.TabIndex = 1;
             this.btn_table.Text = "Tables";
             this.btn_table.UseVisualStyleBackColor = false;
+            this.btn_table.Click += new System.EventHandler(this.btn_table_Click);
             // 
             // btn_Order
             // 

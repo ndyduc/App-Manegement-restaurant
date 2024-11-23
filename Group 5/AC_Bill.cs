@@ -41,5 +41,10 @@ namespace Group_5.Properties
         {
 
         }
+
+        private void AC_Bill_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

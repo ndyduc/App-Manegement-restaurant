@@ -64,6 +64,12 @@
     <Compile Include="AC_Menus.Designer.cs">
       <DependentUpon>AC_Menus.cs</DependentUpon>
     </Compile>
+    <Compile Include="AC_Tables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AC_Tables.Designer.cs">
+      <DependentUpon>AC_Tables.cs</DependentUpon>
+    </Compile>
     <Compile Include="NDYDUCDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -80,6 +86,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AC_Home.resx">
       <DependentUpon>AC_Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC_Tables.resx">
+      <DependentUpon>AC_Tables.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

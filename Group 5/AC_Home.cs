@@ -29,5 +29,10 @@ namespace Group_5
             AC_Menus m = new AC_Menus();
             Shareds.GeneralFunct.ShowFormInPanel(m, panel);
         }
+
+        private void btn_table_Click(object sender, EventArgs e)
+        {
+            AC_Tables t = new AC_Tables();
+            Shareds.GeneralFunct.ShowFormInPanel(t, panel);        }
     }
 }
