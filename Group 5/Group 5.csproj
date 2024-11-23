@@ -53,10 +53,10 @@
     <Compile Include="AC_Home.Designer.cs">
       <DependentUpon>AC_Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataClasses1.designer.cs">
+    <Compile Include="Data_group5.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataClasses1.dbml</DependentUpon>
+      <DependentUpon>Data_group5.dbml</DependentUpon>
     </Compile>
     <Compile Include="AC_Menus.cs">
       <SubType>Form</SubType>
@@ -96,13 +96,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="DataClasses1.dbml">
+    <None Include="Data_group5.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+      <LastGenOutput>Data_group5.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="DataClasses1.dbml.layout">
-      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    <None Include="Data_group5.dbml.layout">
+      <DependentUpon>Data_group5.dbml</DependentUpon>
     </None>
     <None Include="NDYDUCDataSet.xsc">
       <DependentUpon>NDYDUCDataSet.xsd</DependentUpon>
