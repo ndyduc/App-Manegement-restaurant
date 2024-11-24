@@ -34,16 +34,6 @@
       <Association Name="Menu_Item_Order" Member="Item_Orders" ThisKey="ID" OtherKey="ID_Menu" Type="Item_Order" />
     </Type>
   </Table>
-  <Table Name="dbo.[Order]" Member="Orders">
-    <Type Name="Order">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="[Table]" Member="Table" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Association Name="Order_Item_Order" Member="Item_Orders" ThisKey="ID" OtherKey="ID_Order" Type="Item_Order" />
-    </Type>
-  </Table>
   <Table Name="dbo.Tables" Member="Tables">
     <Type Name="Table">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -51,6 +41,19 @@
       <Column Name="Amount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Table_Customer" Member="Customers" ThisKey="Id" OtherKey="TableId" Type="Customer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order]" Member="Orders">
+    <Type Name="Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="[Table]" Member="Table" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Order_Item_Order" Member="Item_Orders" ThisKey="ID" OtherKey="ID_Order" Type="Item_Order" />
     </Type>
   </Table>
 </Database>

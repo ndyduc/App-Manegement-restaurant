@@ -44,6 +44,10 @@ namespace Group_5.Properties
 
         private void AC_Bill_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'nDYDUC_data.Order' table. You can move, or remove it, as needed.
+            this.orderTableAdapter.Fill(this.nDYDUC_data.Order);
+            // TODO: This line of code loads data into the 'nDYDUC_data.Menu' table. You can move, or remove it, as needed.
+            this.menuTableAdapter.Fill(this.nDYDUC_data.Menu);
 
         }
     }

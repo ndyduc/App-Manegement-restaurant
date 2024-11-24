@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -38,10 +39,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.img_bill = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.txt_table = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.nDYDUC_data = new Group_5.NDYDUC_data();
+            this.menuBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.menuTableAdapter = new Group_5.NDYDUC_dataTableAdapters.MenuTableAdapter();
+            this.orderBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.orderTableAdapter = new Group_5.NDYDUC_dataTableAdapters.OrderTableAdapter();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.img_bill)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nDYDUC_data)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menuBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -64,7 +73,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.img_bill);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(12, 75);
+            this.panel1.Location = new System.Drawing.Point(12, 70);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(360, 100);
             this.panel1.TabIndex = 2;
@@ -144,22 +153,44 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // txt_table
+            // comboBox1
             // 
-            this.txt_table.AutoSize = true;
-            this.txt_table.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_table.Location = new System.Drawing.Point(81, 9);
-            this.txt_table.Name = "txt_table";
-            this.txt_table.Size = new System.Drawing.Size(27, 29);
-            this.txt_table.TabIndex = 4;
-            this.txt_table.Text = "#";
+            this.comboBox1.DataSource = this.orderBindingSource;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(236, 13);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 28);
+            this.comboBox1.TabIndex = 3;
+            // 
+            // nDYDUC_data
+            // 
+            this.nDYDUC_data.DataSetName = "NDYDUC_data";
+            this.nDYDUC_data.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // menuBindingSource
+            // 
+            this.menuBindingSource.DataMember = "Menu";
+            this.menuBindingSource.DataSource = this.nDYDUC_data;
+            // 
+            // menuTableAdapter
+            // 
+            this.menuTableAdapter.ClearBeforeFill = true;
+            // 
+            // orderBindingSource
+            // 
+            this.orderBindingSource.DataMember = "Order";
+            this.orderBindingSource.DataSource = this.nDYDUC_data;
+            // 
+            // orderTableAdapter
+            // 
+            this.orderTableAdapter.ClearBeforeFill = true;
             // 
             // AC_Bill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(388, 619);
-            this.Controls.Add(this.txt_table);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Name = "AC_Bill";
@@ -169,6 +200,9 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.img_bill)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nDYDUC_data)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menuBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,6 +220,11 @@
         private System.Windows.Forms.Label txt_amount;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label txt_table;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private NDYDUC_data nDYDUC_data;
+        private System.Windows.Forms.BindingSource menuBindingSource;
+        private NDYDUC_dataTableAdapters.MenuTableAdapter menuTableAdapter;
+        private System.Windows.Forms.BindingSource orderBindingSource;
+        private NDYDUC_dataTableAdapters.OrderTableAdapter orderTableAdapter;
     }
 }

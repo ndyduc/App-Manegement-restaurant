@@ -70,10 +70,10 @@
     <Compile Include="AC_Tables.Designer.cs">
       <DependentUpon>AC_Tables.cs</DependentUpon>
     </Compile>
-    <Compile Include="NDYDUCDataSet.Designer.cs">
+    <Compile Include="NDYDUC_data.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NDYDUCDataSet.xsd</DependentUpon>
+      <DependentUpon>NDYDUC_data.xsd</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,16 +113,16 @@
     <None Include="data_g5.dbml.layout">
       <DependentUpon>data_g5.dbml</DependentUpon>
     </None>
-    <None Include="NDYDUCDataSet.xsc">
-      <DependentUpon>NDYDUCDataSet.xsd</DependentUpon>
+    <None Include="NDYDUC_data.xsc">
+      <DependentUpon>NDYDUC_data.xsd</DependentUpon>
     </None>
-    <None Include="NDYDUCDataSet.xsd">
+    <None Include="NDYDUC_data.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>NDYDUCDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>NDYDUC_data.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="NDYDUCDataSet.xss">
-      <DependentUpon>NDYDUCDataSet.xsd</DependentUpon>
+    <None Include="NDYDUC_data.xss">
+      <DependentUpon>NDYDUC_data.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
