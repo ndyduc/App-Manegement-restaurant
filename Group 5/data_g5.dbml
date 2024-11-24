@@ -1,3 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NDYDUC" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-58LSI00;Initial Catalog=NDYDUC;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="Group_5.Properties.Settings" SettingsPropertyName="NDYDUCConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Customers" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Arrived" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Leave" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="TableId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Table_Customer" Member="Table" ThisKey="TableId" OtherKey="Id" Type="Table" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Item_Order" Member="Item_Orders">
+    <Type Name="Item_Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ID_Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ID_Menu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Menu_Item_Order" Member="Menu" ThisKey="ID_Menu" OtherKey="ID" Type="Menu" IsForeignKey="true" />
+      <Association Name="Order_Item_Order" Member="Order" ThisKey="ID_Order" OtherKey="ID" Type="Order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Menu" Member="Menus">
+    <Type Name="Menu">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Kind" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Imagecover" Type="System.String" DbType="Char(500)" CanBeNull="true" />
+      <Association Name="Menu_Item_Order" Member="Item_Orders" ThisKey="ID" OtherKey="ID_Menu" Type="Item_Order" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order]" Member="Orders">
+    <Type Name="Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="[Table]" Member="Table" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="Order_Item_Order" Member="Item_Orders" ThisKey="ID" OtherKey="ID_Order" Type="Item_Order" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tables" Member="Tables">
+    <Type Name="Table">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Table_Customer" Member="Customers" ThisKey="Id" OtherKey="TableId" Type="Customer" />
+    </Type>
+  </Table>
 </Database>

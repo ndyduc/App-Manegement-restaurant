@@ -42,6 +42,8 @@
             this.txt_menu = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel = new System.Windows.Forms.Panel();
+            this.Panel_bill = new System.Windows.Forms.Panel();
+            this.postsTableAdapter1 = new Group_5.NDYDUCDataSetTableAdapters.PostsTableAdapter();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -210,11 +212,26 @@
             // 
             // panel
             // 
+            this.panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel.Location = new System.Drawing.Point(233, 75);
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(790, 600);
             this.panel.TabIndex = 10;
+            // 
+            // Panel_bill
+            // 
+            this.Panel_bill.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Panel_bill.Location = new System.Drawing.Point(612, 0);
+            this.Panel_bill.Name = "Panel_bill";
+            this.Panel_bill.Size = new System.Drawing.Size(410, 675);
+            this.Panel_bill.TabIndex = 0;
+            this.Panel_bill.Visible = false;
+            // 
+            // postsTableAdapter1
+            // 
+            this.postsTableAdapter1.ClearBeforeFill = true;
             // 
             // AC_Home
             // 
@@ -227,8 +244,10 @@
             this.Controls.Add(this.btn_Order);
             this.Controls.Add(this.btn_table);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.Panel_bill);
             this.Name = "AC_Home";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.AC_Home_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -252,5 +271,7 @@
         private System.Windows.Forms.Label txt_menu;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.Panel Panel_bill;
+        private NDYDUCDataSetTableAdapters.PostsTableAdapter postsTableAdapter1;
     }
 }

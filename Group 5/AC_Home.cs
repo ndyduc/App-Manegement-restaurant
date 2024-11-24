@@ -34,5 +34,10 @@ namespace Group_5
         {
             AC_Tables t = new AC_Tables();
             Shareds.GeneralFunct.ShowFormInPanel(t, panel);        }
+
+        private void AC_Home_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
