@@ -30,18 +30,18 @@
         {
             this.AddProduct = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.Done = new System.Windows.Forms.Button();
-            this.AddName = new System.Windows.Forms.Label();
-            this.AddType = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.AddPrice = new System.Windows.Forms.Label();
             this.AddDescription = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.AddImage = new System.Windows.Forms.Label();
+            this.AddType = new System.Windows.Forms.Label();
+            this.AddName = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.AddImage = new System.Windows.Forms.Label();
+            this.Done = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -74,47 +74,45 @@
             this.panel1.Size = new System.Drawing.Size(393, 364);
             this.panel1.TabIndex = 1;
             // 
-            // panel2
+            // comboBox1
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.AddImage);
-            this.panel2.Location = new System.Drawing.Point(414, 74);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(374, 298);
-            this.panel2.TabIndex = 2;
+            this.comboBox1.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Bao",
+            "Bowls",
+            "Sides",
+            "Dessert",
+            "Drink"});
+            this.comboBox1.Location = new System.Drawing.Point(11, 134);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(159, 36);
+            this.comboBox1.TabIndex = 4;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // Done
+            // richTextBox1
             // 
-            this.Done.BackColor = System.Drawing.Color.Firebrick;
-            this.Done.Font = new System.Drawing.Font("Segoe Print", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Done.Location = new System.Drawing.Point(414, 378);
-            this.Done.Name = "Done";
-            this.Done.Size = new System.Drawing.Size(374, 60);
-            this.Done.TabIndex = 3;
-            this.Done.Text = "Done";
-            this.Done.UseVisualStyleBackColor = false;
-            this.Done.Click += new System.EventHandler(this.Done_Click);
+            this.richTextBox1.Location = new System.Drawing.Point(11, 218);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(362, 141);
+            this.richTextBox1.TabIndex = 7;
+            this.richTextBox1.Text = "";
             // 
-            // AddName
+            // textBox3
             // 
-            this.AddName.AutoSize = true;
-            this.AddName.Font = new System.Drawing.Font("Segoe Print", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddName.Location = new System.Drawing.Point(3, 0);
-            this.AddName.Name = "AddName";
-            this.AddName.Size = new System.Drawing.Size(167, 47);
-            this.AddName.TabIndex = 0;
-            this.AddName.Text = "Add Name";
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new System.Drawing.Point(214, 134);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(159, 31);
+            this.textBox3.TabIndex = 6;
             // 
-            // AddType
+            // textBox1
             // 
-            this.AddType.AutoSize = true;
-            this.AddType.Font = new System.Drawing.Font("Segoe Print", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddType.Location = new System.Drawing.Point(3, 84);
-            this.AddType.Name = "AddType";
-            this.AddType.Size = new System.Drawing.Size(153, 47);
-            this.AddType.TabIndex = 1;
-            this.AddType.Text = "Add Type";
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(11, 50);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(362, 31);
+            this.textBox1.TabIndex = 4;
             // 
             // AddPrice
             // 
@@ -136,29 +134,44 @@
             this.AddDescription.TabIndex = 2;
             this.AddDescription.Text = "Add Description";
             // 
-            // textBox1
+            // AddType
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(11, 50);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(362, 31);
-            this.textBox1.TabIndex = 4;
+            this.AddType.AutoSize = true;
+            this.AddType.Font = new System.Drawing.Font("Segoe Print", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddType.Location = new System.Drawing.Point(3, 84);
+            this.AddType.Name = "AddType";
+            this.AddType.Size = new System.Drawing.Size(153, 47);
+            this.AddType.TabIndex = 1;
+            this.AddType.Text = "Add Type";
             // 
-            // textBox3
+            // AddName
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(214, 134);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(159, 31);
-            this.textBox3.TabIndex = 6;
+            this.AddName.AutoSize = true;
+            this.AddName.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddName.Location = new System.Drawing.Point(3, 0);
+            this.AddName.Name = "AddName";
+            this.AddName.Size = new System.Drawing.Size(119, 33);
+            this.AddName.TabIndex = 0;
+            this.AddName.Text = "Add Name";
             // 
-            // richTextBox1
+            // panel2
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(11, 218);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(362, 141);
-            this.richTextBox1.TabIndex = 7;
-            this.richTextBox1.Text = "";
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.AddImage);
+            this.panel2.Location = new System.Drawing.Point(414, 74);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(374, 298);
+            this.panel2.TabIndex = 2;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(13, 84);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(342, 166);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // AddImage
             // 
@@ -171,30 +184,17 @@
             this.AddImage.Text = "Add Image";
             this.AddImage.Click += new System.EventHandler(this.AddImage_Click);
             // 
-            // pictureBox1
+            // Done
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(13, 84);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(342, 166);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Bao",
-            "Bowls",
-            "Sides",
-            "Dessert",
-            "Drink"});
-            this.comboBox1.Location = new System.Drawing.Point(11, 134);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(159, 36);
-            this.comboBox1.TabIndex = 4;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.Done.BackColor = System.Drawing.Color.Firebrick;
+            this.Done.Font = new System.Drawing.Font("Segoe Print", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Done.Location = new System.Drawing.Point(414, 378);
+            this.Done.Name = "Done";
+            this.Done.Size = new System.Drawing.Size(374, 60);
+            this.Done.TabIndex = 3;
+            this.Done.Text = "Done";
+            this.Done.UseVisualStyleBackColor = false;
+            this.Done.Click += new System.EventHandler(this.Done_Click);
             // 
             // AC_Addfood
             // 

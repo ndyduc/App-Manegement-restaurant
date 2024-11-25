@@ -41,6 +41,25 @@ namespace Group_5
             }
         }
 
+        private void LoadMenuItems()
+        {
+            if (string.IsNullOrEmpty(selectedKind))
+            {
+                DisplayMenuItems();
+            }
+            else
+            {
+                DisplayMenuItemsByKind(selectedKind);
+            }
+        }
+
+        public void RefreshFullMenu()
+        {
+            flowLayoutPanel1.Controls.Clear();
+            // Ví dụ: Tải toàn bộ danh sách món ăn từ cơ sở dữ liệu
+            DisplayMenuItems(); // Giả sử đây là phương thức để load tất cả món ăn
+        }
+
         public void RefreshMenuItems(string kind)
         {
             selectedKind = kind; // Cập nhật loại món ăn
@@ -251,7 +270,30 @@ namespace Group_5
 
         private void Edit_Click(object sender, EventArgs e)
         {
+            // Tìm thông tin món ăn trong panel hiện tại
+            Button editButton = sender as Button;
+            if (editButton == null) return;
 
+            Panel menuItemPanel = editButton.Parent as Panel;
+            if (menuItemPanel == null) return;
+
+            // Lấy thông tin từ các control trong panel
+            string name = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Font.Bold)?.Text;
+            string price = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Price:"))?.Text.Replace("Price: ", "");
+            string kind = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Kind:"))?.Text.Replace("Kind: ", "");
+            string description = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Description:"))?.Text.Replace("Description: ", "");
+            string imagePath = menuItemPanel.Controls.OfType<PictureBox>().FirstOrDefault()?.Tag?.ToString();
+
+            // Kiểm tra dữ liệu
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(price) || string.IsNullOrEmpty(kind)) return;
+
+            // Hiển thị form chỉnh sửa
+            AC_EditFood editForm = new AC_EditFood(name, price, kind, description, imagePath);
+            if (editForm.ShowDialog() == DialogResult.OK)
+            {
+                // Cập nhật giao diện sau khi chỉnh sửa thành công
+                LoadMenuItems();
+            }
         }
 
         private void Delete_Click(object sender, EventArgs e)

@@ -27,15 +27,13 @@ namespace Group_5
 
         private void btn_menus_Click(object sender, EventArgs e)
         {
-            if (menuForm == null || menuForm.IsDisposed) // Nếu form chưa mở hoặc đã bị đóng
+            if (menuForm == null || menuForm.IsDisposed) // Nếu form chưa tồn tại hoặc đã bị đóng
             {
                 menuForm = new AC_Menus(); // Tạo form mới
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel); // Hiển thị trong panel
             }
-            else
-            {
-                menuForm.BringToFront(); // Đưa form đã mở lên phía trước
-            }
+
+            menuForm.RefreshFullMenu();
         }
 
         private void btn_table_Click(object sender, EventArgs e)
