@@ -58,10 +58,11 @@
             this.panel1.Controls.Add(this.btn_bao);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(157, 558);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label2
             // 
@@ -100,6 +101,7 @@
             this.btn_drinks.TabIndex = 5;
             this.btn_drinks.Text = "Drinks";
             this.btn_drinks.UseVisualStyleBackColor = false;
+            this.btn_drinks.Click += new System.EventHandler(this.btn_drinks_Click);
             // 
             // btn_sides
             // 
@@ -113,6 +115,7 @@
             this.btn_sides.TabIndex = 4;
             this.btn_sides.Text = "Sides";
             this.btn_sides.UseVisualStyleBackColor = false;
+            this.btn_sides.Click += new System.EventHandler(this.btn_sides_Click);
             // 
             // btn_bowls
             // 
@@ -126,6 +129,7 @@
             this.btn_bowls.TabIndex = 3;
             this.btn_bowls.Text = "Bowls";
             this.btn_bowls.UseVisualStyleBackColor = false;
+            this.btn_bowls.Click += new System.EventHandler(this.btn_bowls_Click);
             // 
             // btn_dessert
             // 
@@ -139,6 +143,7 @@
             this.btn_dessert.TabIndex = 2;
             this.btn_dessert.Text = "Dessert";
             this.btn_dessert.UseVisualStyleBackColor = false;
+            this.btn_dessert.Click += new System.EventHandler(this.btn_dessert_Click);
             // 
             // btn_bao
             // 
@@ -152,6 +157,7 @@
             this.btn_bao.TabIndex = 1;
             this.btn_bao.Text = "Bao";
             this.btn_bao.UseVisualStyleBackColor = false;
+            this.btn_bao.Click += new System.EventHandler(this.btn_bao_Click);
             // 
             // label1
             // 
@@ -209,7 +215,7 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(231, 16);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(82, 21);
             this.comboBox1.TabIndex = 9;
@@ -219,7 +225,7 @@
             this.panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel.Location = new System.Drawing.Point(160, 41);
-            this.panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel.Margin = new System.Windows.Forms.Padding(2);
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(877, 516);
             this.panel.TabIndex = 10;
@@ -229,7 +235,7 @@
             this.Panel_bill.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Panel_bill.Location = new System.Drawing.Point(763, 0);
-            this.Panel_bill.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Panel_bill.Margin = new System.Windows.Forms.Padding(2);
             this.Panel_bill.Name = "Panel_bill";
             this.Panel_bill.Size = new System.Drawing.Size(273, 557);
             this.Panel_bill.TabIndex = 0;
@@ -247,7 +253,7 @@
             this.Controls.Add(this.btn_table);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Panel_bill);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AC_Home";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.AC_Home_Load);

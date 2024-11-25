@@ -14,20 +14,87 @@ namespace Group_5
 {
     public partial class AC_Menus : Form
     {
-        
+        private string selectedKind = null;
 
         public AC_Menus()
         {
             InitializeComponent();
-
-            flowLayoutPanel1.AutoScroll = true;
         }
 
+        public AC_Menus(string kind)
+        {
+            InitializeComponent();
+            selectedKind = kind; // Gán giá trị `kind` truyền vào
+        }
         private void AC_Menus_Load(object sender, EventArgs e)
         {
-            // Kết nối và lấy dữ liệu từ cơ sở dữ liệu
-            DisplayMenuItems();
+
+            if (string.IsNullOrEmpty(selectedKind))
+            {
+                // Không có `kind`, hiển thị tất cả sản phẩm
+                DisplayMenuItems();
+            }
+            else
+            {
+                // Có `kind`, hiển thị sản phẩm theo loại
+                DisplayMenuItemsByKind(selectedKind);
+            }
         }
+
+        public void RefreshMenuItems(string kind)
+        {
+            selectedKind = kind; // Cập nhật loại món ăn
+            flowLayoutPanel1.Controls.Clear(); // Xóa tất cả các mục hiện tại trong giao diện
+            if (string.IsNullOrEmpty(kind))
+            {
+                DisplayMenuItems(); // Hiển thị tất cả món ăn
+            }
+            else
+            {
+                DisplayMenuItemsByKind(kind); // Hiển thị món ăn theo loại
+            }
+        }
+
+
+        public void DisplayMenuItemsByKind(string kind)
+        {
+            string connectstring = @"Data Source=DESKTOP-HGURI53;Initial Catalog=ndyduc;Integrated Security=True";
+            string query = "SELECT Name, Price, Kind, Description, ImageCover FROM Menu WHERE Kind = @Kind";
+
+            using (SqlConnection connection = new SqlConnection(connectstring))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Kind", kind);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Tạo đối tượng MenuItem
+                        MenuItem item = new MenuItem
+                        {
+                            Name = reader["Name"].ToString(),
+                            Price = reader["Price"].ToString(),
+                            Kind = reader["Kind"].ToString(),
+                            Description = reader["Description"].ToString(),
+                            ImageCover = reader["ImageCover"].ToString()
+                        };
+
+                        // Hiển thị món ăn
+                        CreateMenuItemPanel(item);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading data: " + ex.Message);
+                }
+            }
+        }
+
 
         public void DisplayMenuItems()
         {

@@ -13,6 +13,7 @@ namespace Group_5
 {
     public partial class AC_Home : Form
     {
+        private AC_Menus menuForm;
 
         public AC_Home()
         {
@@ -26,8 +27,15 @@ namespace Group_5
 
         private void btn_menus_Click(object sender, EventArgs e)
         {
-            AC_Menus m = new AC_Menus();
-            Shareds.GeneralFunct.ShowFormInPanel(m, panel);
+            if (menuForm == null || menuForm.IsDisposed) // Nếu form chưa mở hoặc đã bị đóng
+            {
+                menuForm = new AC_Menus(); // Tạo form mới
+                Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel); // Hiển thị trong panel
+            }
+            else
+            {
+                menuForm.BringToFront(); // Đưa form đã mở lên phía trước
+            }
         }
 
         private void btn_table_Click(object sender, EventArgs e)
@@ -38,6 +46,61 @@ namespace Group_5
         private void AC_Home_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_bao_Click(object sender, EventArgs e)
+        {
+            if (menuForm == null || menuForm.IsDisposed)
+            {
+                menuForm = new AC_Menus(); // Tạo form mới nếu cần
+                Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
+            }
+            menuForm.RefreshMenuItems("Bao");
+        }
+
+        private void btn_sides_Click(object sender, EventArgs e)
+        {
+            if (menuForm == null || menuForm.IsDisposed)
+            {
+                menuForm = new AC_Menus();
+                Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
+            }
+            menuForm.RefreshMenuItems("Sides");
+        }
+
+        private void btn_bowls_Click(object sender, EventArgs e)
+        {
+            if (menuForm == null || menuForm.IsDisposed)
+            {
+                menuForm = new AC_Menus();
+                Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
+            }
+            menuForm.RefreshMenuItems("Bowls");
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btn_dessert_Click(object sender, EventArgs e)
+        {
+            if (menuForm == null || menuForm.IsDisposed)
+            {
+                menuForm = new AC_Menus();
+                Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
+            }
+            menuForm.RefreshMenuItems("Dessert");
+        }
+
+        private void btn_drinks_Click(object sender, EventArgs e)
+        {
+            if (menuForm == null || menuForm.IsDisposed)
+            {
+                menuForm = new AC_Menus();
+                Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
+            }
+            menuForm.RefreshMenuItems("Drinks");
         }
     }
 }
