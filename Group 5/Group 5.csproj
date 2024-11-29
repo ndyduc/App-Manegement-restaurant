@@ -82,6 +82,9 @@
     <Compile Include="AC_Addfood.Designer.cs">
       <DependentUpon>AC_Addfood.cs</DependentUpon>
     </Compile>
+    <Compile Include="NDYDUC_data.cs">
+      <DependentUpon>NDYDUC_data.xsd</DependentUpon>
+    </Compile>
     <Compile Include="NDYDUC_data.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

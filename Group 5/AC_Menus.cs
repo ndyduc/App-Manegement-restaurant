@@ -262,7 +262,6 @@ namespace Group_5
         {
 
         }
-
         private void Kind_Click(object sender, EventArgs e)
         {
 

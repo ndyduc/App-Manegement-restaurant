@@ -100,5 +100,15 @@ namespace Group_5
             }
             menuForm.RefreshMenuItems("Drinks");
         }
+
+        private void panel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Panel_bill_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
