@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
+using System.Net;
 
 namespace Group_5
 {
@@ -77,39 +78,42 @@ namespace Group_5
 
         public void DisplayMenuItemsByKind(string kind)
         {
-            string connectstring = @"Data Source=DESKTOP-HGURI53;Initial Catalog=ndyduc;Integrated Security=True";
-            string query = "SELECT Name, Price, Kind, Description, ImageCover FROM Menu WHERE Kind = @Kind";
-
-            using (SqlConnection connection = new SqlConnection(connectstring))
+            using (var context = new DataClasses1DataContext())  // Sử dụng DataContext của LINQ
             {
                 try
                 {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Kind", kind);
-                    SqlDataReader reader = command.ExecuteReader();
+                    var menuItems = context.Menus  // Truy vấn bảng Menu từ DataContext
+                        .Where(item => item.Kind == kind)  // Lọc theo loại món ăn (Kind)
+                        .Select(item => new
+                        {
+                            item.Name,
+                            item.Price,
+                            item.Kind,
+                            item.Description,
+                            item.Imagecover
+                        })
+                        .ToList();
 
-                    while (reader.Read())
+                    foreach (var menuItem in menuItems)
                     {
-                        // Tạo đối tượng MenuItem
+                        // Tạo đối tượng MenuItem từ kết quả truy vấn
                         MenuItem item = new MenuItem
                         {
-                            Name = reader["Name"].ToString(),
-                            Price = reader["Price"].ToString(),
-                            Kind = reader["Kind"].ToString(),
-                            Description = reader["Description"].ToString(),
-                            ImageCover = reader["ImageCover"].ToString()
+                            Name = menuItem.Name,
+                            Price = menuItem.Price.ToString(),  // Nếu Price là int, chuyển sang string
+                            Kind = menuItem.Kind,
+                            Description = menuItem.Description,
+                            ImageCover = menuItem.Imagecover
                         };
 
-                        // Hiển thị món ăn
+                        // Gọi phương thức để hiển thị món ăn
                         CreateMenuItemPanel(item);
                     }
-
-                    reader.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error loading data: " + ex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
@@ -117,41 +121,36 @@ namespace Group_5
 
         public void DisplayMenuItems()
         {
-            string connectstring = @"Data Source=DESKTOP-HGURI53;Initial Catalog=ndyduc;Integrated Security=True";
-            string query = "SELECT Name, Price, Kind, Description, ImageCover FROM Menu";
-
-            using (SqlConnection connection = new SqlConnection(connectstring))
+            using (var context = new DataClasses1DataContext())
             {
                 try
                 {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(query, connection);
-                    SqlDataReader reader = command.ExecuteReader();
+                    var menuItems = context.Menus
+                        .Select(item => new
+                        {
+                            item.Name,
+                            item.Price,
+                            item.Kind,
+                            item.Description,
+                            item.Imagecover
+                        })
+                        .ToList();
 
-                    while (reader.Read())
+                    foreach (var menuItem in menuItems)
                     {
-                        // Lấy thông tin từ từng món ăn trong cơ sở dữ liệu
-                        string name = reader["Name"].ToString();
-                        string price = reader["Price"].ToString();
-                        string kind = reader["Kind"].ToString();
-                        string description = reader["Description"].ToString();
-                        string imageCover = reader["ImageCover"].ToString(); // Đảm bảo là đường dẫn hợp lệ
-
-                        // Tạo đối tượng MenuItem từ dữ liệu
+                        // Tạo đối tượng MenuItem
                         MenuItem item = new MenuItem
                         {
-                            Name = name,
-                            Price = price,
-                            Kind = kind,
-                            Description = description,
-                            ImageCover = imageCover
+                            Name = menuItem.Name,
+                            Price = menuItem.Price.ToString(),
+                            Kind = menuItem.Kind,
+                            Description = menuItem.Description,
+                            ImageCover = menuItem.Imagecover
                         };
 
-                        // Gọi phương thức DisplayMenuItem để hiển thị món ăn
+                        // Gọi phương thức để hiển thị món ăn
                         CreateMenuItemPanel(item);
                     }
-
-                    reader.Close();
                 }
                 catch (Exception ex)
                 {
@@ -160,60 +159,45 @@ namespace Group_5
             }
         }
 
-        private void CreateMenuItemPanel(MenuItem item)
+
+        private async void CreateMenuItemPanel(MenuItem item)
         {
             // Tạo một Panel cho món ăn
             Panel menuItemPanel = new Panel();
-            menuItemPanel.Size = new Size(250, 0);  // Khởi tạo chiều cao panel là 0, sẽ tính toán sau
+            menuItemPanel.Size = new Size(300, 0);  // Khởi tạo chiều cao panel là 0, sẽ tính toán sau
             menuItemPanel.BorderStyle = BorderStyle.FixedSingle;
             menuItemPanel.Margin = new Padding(10);
 
             // Tạo PictureBox cho ảnh món ăn (ở trên cùng)
             PictureBox pictureBox = new PictureBox();
-            pictureBox.Size = new Size(230, 130); // Kích thước ảnh
+            pictureBox.Size = new Size(300, 130); // Kích thước ảnh
             pictureBox.Location = new Point(10, 10);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-
-            if (!string.IsNullOrEmpty(item.ImageCover) && File.Exists(item.ImageCover))
-            {
-                try
-                {
-                    pictureBox.Image = Image.FromFile(item.ImageCover);  // Hiển thị ảnh
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error loading image: " + ex.Message);
-                }
-            }
-            else
-            {
-                pictureBox.Image = null;  // Hoặc sử dụng ảnh mặc định nếu không có ảnh
-            }
 
             // Tạo Label cho tên món ăn
             Label nameLabel = new Label();
             nameLabel.Text = item.Name;
             nameLabel.Font = new Font("Arial", 12, FontStyle.Bold);
             nameLabel.Location = new Point(10, 150);  // Dưới ảnh
-            nameLabel.Size = new Size(230, 20);
+            nameLabel.Size = new Size(280, 20);
 
             // Tạo Label cho giá món ăn
             Label priceLabel = new Label();
             priceLabel.Text = "Price: " + item.Price;
             priceLabel.Location = new Point(10, 180);  // Dưới tên món ăn
-            priceLabel.Size = new Size(230, 20);
+            priceLabel.Size = new Size(280, 20);
 
             // Tạo Label cho loại món ăn
             Label kindLabel = new Label();
             kindLabel.Text = "Kind: " + item.Kind;
             kindLabel.Location = new Point(10, 210);  // Dưới giá món ăn
-            kindLabel.Size = new Size(230, 20);
+            kindLabel.Size = new Size(280, 20);
 
             // Tạo Label cho mô tả món ăn
             Label descriptionLabel = new Label();
             descriptionLabel.Text = item.Description;
             descriptionLabel.Location = new Point(10, 240);  // Dưới loại món ăn
-            descriptionLabel.Size = new Size(230, 40);
+            descriptionLabel.Size = new Size(280, 40);
 
             // Tạo Button Edit
             Button editButton = new Button();
@@ -238,12 +222,92 @@ namespace Group_5
             menuItemPanel.Controls.Add(editButton);
             menuItemPanel.Controls.Add(deleteButton);
 
+            // Tải ảnh bất đồng bộ
+            await Task.Run(() => LoadImageAsync(item.ImageCover, pictureBox));
+
             // Tính toán chiều cao của Panel để phù hợp với các điều khiển
             int totalHeight = 10 + pictureBox.Height + 10 + nameLabel.Height + 10 + priceLabel.Height + 10 + kindLabel.Height + 10 + descriptionLabel.Height + 10 + editButton.Height + 10;
             menuItemPanel.Height = totalHeight;  // Cập nhật chiều cao của Panel
 
             // Thêm Panel vào FlowLayoutPanel
             this.flowLayoutPanel1.Controls.Add(menuItemPanel);
+        }
+
+        private void LoadImageAsync(string imagePath, PictureBox pictureBox)
+        {
+            if (!string.IsNullOrEmpty(imagePath))
+            {
+                try
+                {
+                    // Kiểm tra xem đó có phải là một URL hợp lệ hay không
+                    Uri uriResult;
+                    bool isValidUrl = Uri.TryCreate(imagePath, UriKind.Absolute, out uriResult)
+                                      && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+                    if (isValidUrl)
+                    {
+                        // Tải ảnh từ URL và thay đổi kích thước
+                        using (var webClient = new WebClient())
+                        {
+                            byte[] imageBytes = webClient.DownloadData(imagePath);
+                            using (var stream = new MemoryStream(imageBytes))
+                            {
+                                Image originalImage = Image.FromStream(stream); // Tải hình ảnh gốc
+
+                                // Tạo một thumbnail (giảm kích thước ảnh)
+                                int thumbnailWidth = 230; // Kích thước ảnh mới
+                                int thumbnailHeight = 130;
+                                // Kiểm tra nếu handle đã được tạo ra trước khi gọi Invoke
+                                if (pictureBox.IsHandleCreated)
+                                {
+                                    pictureBox.Invoke((Action)(() =>
+                                    {
+                                        pictureBox.Image = originalImage.GetThumbnailImage(thumbnailWidth, thumbnailHeight, null, IntPtr.Zero); // Thay đổi kích thước ảnh
+                                    }));
+                                }
+                            }
+                        }
+                    }
+                    else if (File.Exists(imagePath))
+                    {
+                        // Nếu không phải URL nhưng là file cục bộ
+                        Image originalImage = Image.FromFile(imagePath);  // Hiển thị ảnh từ file cục bộ
+
+                        // Tạo một thumbnail (giảm kích thước ảnh)
+                        int thumbnailWidth = 230; // Kích thước ảnh mới
+                        int thumbnailHeight = 130;
+                        // Kiểm tra nếu handle đã được tạo ra trước khi gọi Invoke
+                        if (pictureBox.IsHandleCreated)
+                        {
+                            pictureBox.Invoke((Action)(() =>
+                            {
+                                pictureBox.Image = originalImage.GetThumbnailImage(thumbnailWidth, thumbnailHeight, null, IntPtr.Zero); // Thay đổi kích thước ảnh
+                            }));
+                        }
+                    }
+                    else
+                    {
+                        // Nếu không phải URL và không phải file tồn tại
+                        if (pictureBox.IsHandleCreated)
+                        {
+                            pictureBox.Invoke((Action)(() =>
+                            {
+                                pictureBox.Image = null;  // Hoặc sử dụng ảnh mặc định nếu không có ảnh
+                            }));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (pictureBox.IsHandleCreated)
+                    {
+                        pictureBox.Invoke((Action)(() =>
+                        {
+                            MessageBox.Show("Error loading image: " + ex.Message);
+                        }));
+                    }
+                }
+            }
         }
 
 
@@ -282,7 +346,7 @@ namespace Group_5
             string kind = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Kind:"))?.Text.Replace("Kind: ", "");
             string description = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Description:"))?.Text.Replace("Description: ", "");
             string imagePath = menuItemPanel.Controls.OfType<PictureBox>().FirstOrDefault()?.Tag?.ToString();
-
+            //Console.WriteLine(description + "abc");
             // Kiểm tra dữ liệu
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(price) || string.IsNullOrEmpty(kind)) return;
 
@@ -294,6 +358,7 @@ namespace Group_5
                 LoadMenuItems();
             }
         }
+
 
         private void Delete_Click(object sender, EventArgs e)
         {
@@ -319,34 +384,31 @@ namespace Group_5
             if (confirmResult != DialogResult.Yes)
                 return;
 
-            // Kết nối cơ sở dữ liệu để xóa món ăn
-            string connectstring = @"Data Source=DESKTOP-HGURI53;Initial Catalog=ndyduc;Integrated Security=True";
-            string query = "DELETE FROM Menu WHERE Name = @Name";
-
-            using (SqlConnection connection = new SqlConnection(connectstring))
+            using (var context = new DataClasses1DataContext())  // Sử dụng LINQ DataContext
             {
-                try
+                // Tìm món ăn theo tên
+                var menuItem = context.Menus.FirstOrDefault(m => m.Name == name);
+                if (menuItem != null)
                 {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Name", name);
-
-                    int rowsAffected = command.ExecuteNonQuery();
-                    if (rowsAffected > 0)
+                    try
                     {
-                        MessageBox.Show("Food item deleted successfully!");
+                        // Xóa món ăn khỏi cơ sở dữ liệu
+                        context.Menus.DeleteOnSubmit(menuItem);
+                        context.SubmitChanges();
 
                         // Xóa Panel khỏi giao diện
                         flowLayoutPanel1.Controls.Remove(menuItemPanel);
+
+                        MessageBox.Show("Food item deleted successfully!");
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Error: Food item not found or could not be deleted.");
+                        MessageBox.Show("Error deleting data: " + ex.Message);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    MessageBox.Show("Error: Food item not found.");
                 }
             }
         }

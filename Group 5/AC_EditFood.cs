@@ -50,6 +50,12 @@ namespace Group_5
 
         }
 
+        private void AC_EditFood_Load(object sender, EventArgs e)
+        {
+            // Đây là nơi bạn có thể thực hiện các thao tác khi form được tải (nếu cần)
+        }
+
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             // Mở hộp thoại chọn ảnh
@@ -84,39 +90,50 @@ namespace Group_5
                 return;
             }
 
-            // Kết nối và cập nhật cơ sở dữ liệu
-            string connectionString = @"Data Source=DESKTOP-HGURI53;Initial Catalog=ndyduc;Integrated Security=True";
-            string query = "UPDATE Menu SET Name = @NewName, Price = @Price, Kind = @Kind, Description = @Description, ImageCover = @Image WHERE Name = @OldName";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            // Kiểm tra và chuyển đổi giá trị Price sang int
+            int parsedPrice;
+            if (!int.TryParse(newPrice, out parsedPrice))
             {
-                try
-                {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@NewName", newName);
-                    command.Parameters.AddWithValue("@Price", newPrice);
-                    command.Parameters.AddWithValue("@Kind", newKind);
-                    command.Parameters.AddWithValue("@Description", newDescription);
-                    command.Parameters.AddWithValue("@Image", newImagePath ?? "");
-                    command.Parameters.AddWithValue("@OldName", foodName);
+                MessageBox.Show("Price must be a valid number.");
+                return;
+            }
 
-                    int rowsAffected = command.ExecuteNonQuery();
-                    if (rowsAffected > 0)
+            // Sử dụng LINQ để cập nhật món ăn
+            using (var context = new DataClasses1DataContext())
+            {
+                // Tìm món ăn trong cơ sở dữ liệu
+                var menuItem = context.Menus.FirstOrDefault(m => m.Name == foodName);
+                if (menuItem != null)
+                {
+                    // Cập nhật thông tin món ăn
+                    menuItem.Name = newName;
+                    menuItem.Price = parsedPrice;
+                    menuItem.Kind = newKind;
+                    menuItem.Description = newDescription;
+                    menuItem.Imagecover = newImagePath ?? ""; // Cập nhật đường dẫn ảnh, nếu có
+
+                    // Lưu thay đổi vào cơ sở dữ liệu
+                    try
                     {
+                        context.SubmitChanges(); // Lưu thay đổi
                         MessageBox.Show("Food updated successfully!");
                         this.DialogResult = DialogResult.OK; // Đóng form với kết quả OK
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Error updating food.");
+                        MessageBox.Show("Error updating food: " + ex.Message);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    MessageBox.Show("Food item not found.");
                 }
             }
+        }
+
+        private void AC_EditFood_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

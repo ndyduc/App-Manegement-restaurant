@@ -63,7 +63,7 @@ namespace Group_5
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Sides");
+            menuForm.RefreshMenuItems("Side");
         }
 
         private void btn_bowls_Click(object sender, EventArgs e)
@@ -73,7 +73,7 @@ namespace Group_5
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Bowls");
+            menuForm.RefreshMenuItems("Bowl");
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -98,7 +98,7 @@ namespace Group_5
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Drinks");
+            menuForm.RefreshMenuItems("Drink");
         }
 
         private void panel_Paint(object sender, PaintEventArgs e)

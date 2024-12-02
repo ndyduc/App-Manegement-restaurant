@@ -1,4 +1,6 @@
-﻿namespace Group_5
+﻿using System.Windows.Forms;
+
+namespace Group_5
 {
     partial class AC_Home
     {
@@ -61,7 +63,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-2, -2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(236, 858);
+            this.panel1.Size = new System.Drawing.Size(236, 945);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -81,7 +83,7 @@
             this.btn_menus.BackColor = System.Drawing.Color.MediumOrchid;
             this.btn_menus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_menus.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_menus.Location = new System.Drawing.Point(32, 629);
+            this.btn_menus.Location = new System.Drawing.Point(32, 716);
             this.btn_menus.Margin = new System.Windows.Forms.Padding(0);
             this.btn_menus.Name = "btn_menus";
             this.btn_menus.Size = new System.Drawing.Size(170, 44);
@@ -177,7 +179,7 @@
             this.btn_table.BackColor = System.Drawing.Color.MediumPurple;
             this.btn_table.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_table.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_table.Location = new System.Drawing.Point(975, 12);
+            this.btn_table.Location = new System.Drawing.Point(1635, 12);
             this.btn_table.Margin = new System.Windows.Forms.Padding(0);
             this.btn_table.Name = "btn_table";
             this.btn_table.Size = new System.Drawing.Size(190, 46);
@@ -192,7 +194,7 @@
             this.btn_Order.BackColor = System.Drawing.Color.MediumPurple;
             this.btn_Order.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Order.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_Order.Location = new System.Drawing.Point(765, 12);
+            this.btn_Order.Location = new System.Drawing.Point(1425, 12);
             this.btn_Order.Margin = new System.Windows.Forms.Padding(0);
             this.btn_Order.Name = "btn_Order";
             this.btn_Order.Size = new System.Drawing.Size(190, 46);
@@ -226,7 +228,7 @@
             this.panel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel.Location = new System.Drawing.Point(233, 76);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(942, 781);
+            this.panel.Size = new System.Drawing.Size(1600, 868);
             this.panel.TabIndex = 10;
             this.panel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Paint);
             // 
@@ -235,9 +237,9 @@
             this.Panel_bill.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Panel_bill.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.Panel_bill.Location = new System.Drawing.Point(752, 0);
+            this.Panel_bill.Location = new System.Drawing.Point(1412, 0);
             this.Panel_bill.Name = "Panel_bill";
-            this.Panel_bill.Size = new System.Drawing.Size(423, 857);
+            this.Panel_bill.Size = new System.Drawing.Size(423, 944);
             this.Panel_bill.TabIndex = 0;
             this.Panel_bill.Visible = false;
             this.Panel_bill.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_bill_Paint);
@@ -246,16 +248,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1178, 857);
-            this.Controls.Add(this.panel);
+            this.ClientSize = new System.Drawing.Size(1838, 944);
             this.Controls.Add(this.billwhere);
             this.Controls.Add(this.txt_menu);
             this.Controls.Add(this.btn_Order);
             this.Controls.Add(this.btn_table);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Panel_bill);
+            this.Controls.Add(this.panel);
             this.Name = "AC_Home";
             this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.AC_Home_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
