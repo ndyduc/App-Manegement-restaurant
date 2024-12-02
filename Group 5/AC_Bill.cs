@@ -50,5 +50,15 @@ namespace Group_5.Properties
             this.menuTableAdapter.Fill(this.nDYDUC_data.Menu);
 
         }
+
+        private void lblSubtotal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
