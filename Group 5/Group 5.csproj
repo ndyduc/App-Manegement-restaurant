@@ -59,6 +59,9 @@
     <Compile Include="AC_Home.Designer.cs">
       <DependentUpon>AC_Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="Component\RoundedButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="data_g5.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,6 +85,12 @@
     <Compile Include="AC_Addfood.Designer.cs">
       <DependentUpon>AC_Addfood.cs</DependentUpon>
     </Compile>
+    <Compile Include="AC_AddtoBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AC_AddtoBill.Designer.cs">
+      <DependentUpon>AC_AddtoBill.cs</DependentUpon>
+    </Compile>
     <Compile Include="NDYDUC_data.cs">
       <DependentUpon>NDYDUC_data.xsd</DependentUpon>
     </Compile>
@@ -95,6 +104,9 @@
     <Compile Include="Shareds\GeneralFunct.cs" />
     <EmbeddedResource Include="AC_Addfood.resx">
       <DependentUpon>AC_Addfood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC_AddtoBill.resx">
+      <DependentUpon>AC_AddtoBill.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AC_Bill.resx">
       <DependentUpon>AC_Bill.cs</DependentUpon>

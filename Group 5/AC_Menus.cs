@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 
 namespace Group_5
 {
@@ -32,13 +33,13 @@ namespace Group_5
 
             if (string.IsNullOrEmpty(selectedKind))
             {
-                // Không có `kind`, hiển thị tất cả sản phẩm
+                addbtn.Visible = false; 
                 DisplayMenuItems();
             }
             else
             {
                 // Có `kind`, hiển thị sản phẩm theo loại
-                DisplayMenuItemsByKind(selectedKind, false);
+                DisplayMenuItemsByKind(selectedKind);
             }
         }
 
@@ -50,7 +51,7 @@ namespace Group_5
             }
             else
             {
-                DisplayMenuItemsByKind(selectedKind, false);
+                DisplayMenuItemsByKind(selectedKind);
             }
         }
 
@@ -67,16 +68,18 @@ namespace Group_5
             flowLayoutPanel1.Controls.Clear(); // Xóa tất cả các mục hiện tại trong giao diện
             if (string.IsNullOrEmpty(kind))
             {
+                addbtn.Visible = true;
                 DisplayMenuItems(); // Hiển thị tất cả món ăn
             }
             else if(!ismanage)
             {
-                DisplayMenuItemsByKind(kind, ismanage); // Hiển thị món ăn theo loại
+                addbtn.Visible = false;
+                DisplayMenuItemsByKind(kind); // Hiển thị món ăn theo loại
             }
         }
 
 
-        public void DisplayMenuItemsByKind(string kind, Boolean ismanage)
+        public void DisplayMenuItemsByKind(string kind)
         {
             using (var context = new DataClasses1DataContext())  // Sử dụng DataContext của LINQ
             {
@@ -107,9 +110,7 @@ namespace Group_5
                             Description = menuItem.Description,
                             ImageCover = menuItem.Imagecover
                         };
-
-                        // Gọi phương thức để hiển thị món ăn
-                        CreateMenuItemPanel(item, ismanage);
+                        CreateMenuItemPanel(item);
                     }
 
                 }
@@ -154,7 +155,7 @@ namespace Group_5
                         };
 
                         // Gọi phương thức để hiển thị món ăn
-                        CreateMenuItemPanel(item, true);
+                        CreateMenuItemAll(item);
                     }
 
                     Console.WriteLine(flowLayoutPanel1.Height);
@@ -166,59 +167,127 @@ namespace Group_5
             }
         }
 
-        private async void CreateMenuItemPanel(MenuItem item,Boolean ismanage)
+        private async void CreateMenuItemPanel(MenuItem item)
         {
             // Tạo một Panel cho món ăn
             Panel menuItemPanel = new Panel();
             menuItemPanel.Size = new Size(200, 0);  // Khởi tạo chiều cao panel là 0, sẽ tính toán sau
             menuItemPanel.BorderStyle = BorderStyle.FixedSingle;
-            menuItemPanel.Margin = new Padding(10);
+            menuItemPanel.Margin = new Padding(10,5,10,5);
 
             // Tạo PictureBox cho ảnh món ăn (ở trên cùng)
             PictureBox pictureBox = new PictureBox();
-            pictureBox.Size = new Size(200, 130); // Kích thước ảnh
-            pictureBox.Location = new Point(10, 10);
+            pictureBox.Size = new Size(200, 200); // Kích thước ảnh
+            pictureBox.Location = new Point(0, 0);
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+
+
+            // Tạo Label cho tên món ăn
+            Label nameLabel = new Label();
+            nameLabel.Text = item.Name;
+            nameLabel.Font = new Font("Arial", 12, FontStyle.Bold);
+            nameLabel.Location = new Point(10, 230);  // Dưới ảnh
+            nameLabel.Size = new Size(180, 20);
+
+            // Tạo Label cho loại món ăn
+            Label kindLabel = new Label();
+            kindLabel.Text = "Kind: " + item.Kind;
+            kindLabel.Visible = false;
+
+            // Tạo Label cho mô tả món ăn
+            Label descriptionLabel = new Label();
+            descriptionLabel.Text = item.Description;
+            descriptionLabel.Location = new Point(10, 260);  // Dưới loại món ăn
+            descriptionLabel.Size = new Size(180, 30);
+
+            // Tạo Label cho giá món ăn
+            Label priceLabel = new Label();
+            priceLabel.Text = "Price: " + item.Price + " VND";
+            priceLabel.Location = new Point(10, 290);  // Dưới tên món ăn
+            priceLabel.Size = new Size(180, 20);
+
+            // Thêm các điều khiển vào Panel
+            menuItemPanel.Controls.Add(pictureBox);
+            menuItemPanel.Controls.Add(nameLabel);
+            menuItemPanel.Controls.Add(priceLabel);
+            menuItemPanel.Controls.Add(kindLabel);
+            menuItemPanel.Controls.Add(descriptionLabel);
+
+            LoadImageFromUrl(item.ImageCover, pictureBox);
+
+            //LoadImageFromUrl(item.ImageCover, pictureBox);
+
+            // Tính toán chiều cao của Panel để phù hợp với các điều khiển
+            int totalHeight =   pictureBox.Height + nameLabel.Height + priceLabel.Height + 10 + kindLabel.Height + 10 + descriptionLabel.Height;
+            menuItemPanel.Height = totalHeight;  // Cập nhật chiều cao của Panel
+
+            // Thêm Panel vào FlowLayoutPanel
+            this.flowLayoutPanel1.Controls.Add(menuItemPanel);
+
+            // Tạo sự kiện click cho Panel
+            menuItemPanel.Click += (sender, e) =>
+            {
+                int idfood = item.Id;  // Giả sử MenuItem có trường Id
+                int idorder = 1;  // Giả sử idorder là 1, bạn có thể thay thế bằng giá trị thực tế
+
+                AC_AddtoBill addToBillForm = new AC_AddtoBill(idfood, idorder);
+                addToBillForm.Show();
+            };
+        }
+
+
+        private async void CreateMenuItemAll(MenuItem item)
+        {
+            // Tạo một Panel cho món ăn
+            Panel menuItemPanel = new Panel();
+            menuItemPanel.Size = new Size(200, 0);  // Khởi tạo chiều cao panel là 0, sẽ tính toán sau
+            menuItemPanel.BorderStyle = BorderStyle.FixedSingle;
+            menuItemPanel.Margin = new Padding(10,5,10,5);
+
+            // Tạo PictureBox cho ảnh món ăn (ở trên cùng)
+            PictureBox pictureBox = new PictureBox();
+            pictureBox.Size = new Size(200, 200); // Kích thước ảnh
+            pictureBox.Location = new Point(0, 0);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
 
             // Tạo Label cho tên món ăn
             Label nameLabel = new Label();
             nameLabel.Text = item.Name;
             nameLabel.Font = new Font("Arial", 12, FontStyle.Bold);
-            nameLabel.Location = new Point(10, 150);  // Dưới ảnh
+            nameLabel.Location = new Point(10, 215);  // Dưới ảnh
             nameLabel.Size = new Size(180, 20);
 
 
             // Tạo Label cho loại món ăn
             Label kindLabel = new Label();
             kindLabel.Text = "Kind: " + item.Kind;
-            kindLabel.Location = new Point(10, 210);  // Dưới giá món ăn
+            kindLabel.Location = new Point(10, 240);  // Dưới giá món ăn
             kindLabel.Size = new Size(180, 20);
-            kindLabel.Visible = false;
 
             // Tạo Label cho mô tả món ăn
             Label descriptionLabel = new Label();
             descriptionLabel.Text = item.Description;
-            descriptionLabel.Location = new Point(10, 175);  // Dưới loại món ăn
+            descriptionLabel.Location = new Point(10, 265);  // Dưới loại món ăn
             descriptionLabel.Size = new Size(180, 30);
 
             // Tạo Label cho giá món ăn
             Label priceLabel = new Label();
             priceLabel.Text = "Price:        " + item.Price + " VND";
-            priceLabel.Location = new Point(10, 210);  // Dưới tên món ăn
+            priceLabel.Location = new Point(10, 305);  // Dưới tên món ăn
             priceLabel.Size = new Size(180, 20);
 
             // Tạo Button Edit
             Button editButton = new Button();
             editButton.Text = "Edit";
             editButton.Size = new Size(80, 30);
-            editButton.Location = new Point(10, 230);  // Dưới mô tả món ăn
+            editButton.Location = new Point(10, 330);  // Dưới mô tả món ăn
             editButton.Click += Edit_Click;  // Gọi sự kiện khi nhấn nút Edit
 
             // Tạo Button Delete
             Button deleteButton = new Button();
             deleteButton.Text = "Delete";
             deleteButton.Size = new Size(80, 30);
-            deleteButton.Location = new Point(110, 230);  // Cạnh nút Edit
+            deleteButton.Location = new Point(110, 330);  // Cạnh nút Edit
             deleteButton.Click += Delete_Click;  // Gọi sự kiện khi nhấn nút Delete
 
             // Thêm các điều khiển vào Panel
@@ -230,113 +299,84 @@ namespace Group_5
             menuItemPanel.Controls.Add(editButton);
             menuItemPanel.Controls.Add(deleteButton);
 
-
-            // Tải ảnh bất đồng bộ
-            await Task.Run(() => LoadImageAsync(item.ImageCover, pictureBox));
+            LoadImageFromUrl(item.ImageCover, pictureBox);
 
             // Tính toán chiều cao của Panel để phù hợp với các điều khiển
-            int totalHeight = 10 - 50 + pictureBox.Height + 10 + nameLabel.Height + 10 + priceLabel.Height + 10 + kindLabel.Height + 10 + descriptionLabel.Height + 10 + editButton.Height + 10;
+            int totalHeight = pictureBox.Height + nameLabel.Height + 10 + priceLabel.Height + 10 + kindLabel.Height + 10 + descriptionLabel.Height + 10 + editButton.Height + 10;
             menuItemPanel.Height = totalHeight;  // Cập nhật chiều cao của Panel
 
-            if (!ismanage)
-            {
-                editButton.Visible = false;
-                deleteButton.Visible = false;
-                menuItemPanel.Height -= 30;
-
-            }
-            // Thêm Panel vào FlowLayoutPanel
             this.flowLayoutPanel1.Controls.Add(menuItemPanel);
         }
 
-        private void LoadImageAsync(string imagePath, PictureBox pictureBox)
+        private async void LoadImageFromUrl(string imageUrl, PictureBox pictureBox)
         {
-            if (!string.IsNullOrEmpty(imagePath))
+            if (string.IsNullOrWhiteSpace(imageUrl))
             {
-                try
+                pictureBox.Image = null; // Đặt ảnh mặc định hoặc để trống
+                return;
+            }
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
                 {
-                    // Kiểm tra xem đó có phải là một URL hợp lệ hay không
-                    Uri uriResult;
-                    bool isValidUrl = Uri.TryCreate(imagePath, UriKind.Absolute, out uriResult)
-                                      && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+                    HttpResponseMessage response = await client.GetAsync(imageUrl);
+                    response.EnsureSuccessStatusCode();
 
-                    if (isValidUrl)
-                    {
-                        // Tải ảnh từ URL và thay đổi kích thước
-                        using (var webClient = new WebClient())
-                        {
-                            byte[] imageBytes = webClient.DownloadData(imagePath);
-                            using (var stream = new MemoryStream(imageBytes))
-                            {
-                                Image originalImage = Image.FromStream(stream); // Tải hình ảnh gốc
+                    byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();
 
-                                // Tạo một thumbnail (giảm kích thước ảnh)
-                                int thumbnailWidth = 230; // Kích thước ảnh mới
-                                int thumbnailHeight = 130;
-                                // Kiểm tra nếu handle đã được tạo ra trước khi gọi Invoke
-                                if (pictureBox.IsHandleCreated)
-                                {
-                                    pictureBox.Invoke((Action)(() =>
-                                    {
-                                        pictureBox.Image = originalImage.GetThumbnailImage(thumbnailWidth, thumbnailHeight, null, IntPtr.Zero); // Thay đổi kích thước ảnh
-                                    }));
-                                }
-                            }
-                        }
-                    }
-                    else if (File.Exists(imagePath))
+                    using (MemoryStream ms = new MemoryStream(imageBytes))
                     {
-                        // Nếu không phải URL nhưng là file cục bộ
-                        Image originalImage = Image.FromFile(imagePath);  // Hiển thị ảnh từ file cục bộ
+                        Image originalImage = Image.FromStream(ms);
 
-                        // Tạo một thumbnail (giảm kích thước ảnh)
-                        int thumbnailWidth = 230; // Kích thước ảnh mới
-                        int thumbnailHeight = 130;
-                        // Kiểm tra nếu handle đã được tạo ra trước khi gọi Invoke
-                        if (pictureBox.IsHandleCreated)
-                        {
-                            pictureBox.Invoke((Action)(() =>
-                            {
-                                pictureBox.Image = originalImage.GetThumbnailImage(thumbnailWidth, thumbnailHeight, null, IntPtr.Zero); // Thay đổi kích thước ảnh
-                            }));
-                        }
-                    }
-                    else
-                    {
-                        // Nếu không phải URL và không phải file tồn tại
-                        if (pictureBox.IsHandleCreated)
-                        {
-                            pictureBox.Invoke((Action)(() =>
-                            {
-                                pictureBox.Image = null;  // Hoặc sử dụng ảnh mặc định nếu không có ảnh
-                            }));
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (pictureBox.IsHandleCreated)
-                    {
-                        pictureBox.Invoke((Action)(() =>
-                        {
-                            MessageBox.Show("Error loading image: " + ex.Message);
-                        }));
+                        // Cắt ảnh thành hình vuông
+                        Image croppedImage = CropImageToSquare(originalImage);
+
+                        // Đặt ảnh đã cắt vào PictureBox
+                        pictureBox.Image = croppedImage;
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                //MessageBox.Show($"Không thể tải ảnh: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(ex.Message);
+                pictureBox.Image = null; // Đặt ảnh mặc định hoặc để trống
+            }
+        }
+
+        private Image CropImageToSquare(Image originalImage)
+        {
+            // Tìm cạnh ngắn nhất của ảnh (chiều rộng hoặc chiều cao)
+            int squareSize = Math.Min(originalImage.Width, originalImage.Height);
+
+            // Tính toán vị trí cắt để phần hình vuông ở giữa
+            int cropX = (originalImage.Width - squareSize) / 2;
+            int cropY = (originalImage.Height - squareSize) / 2;
+
+            // Tạo ảnh mới hình vuông
+            Bitmap squareImage = new Bitmap(squareSize, squareSize);
+            using (Graphics g = Graphics.FromImage(squareImage))
+            {
+                g.DrawImage(originalImage,
+                    new Rectangle(0, 0, squareSize, squareSize), // Vùng vẽ ảnh
+                    new Rectangle(cropX, cropY, squareSize, squareSize), // Vùng cắt ảnh
+                    GraphicsUnit.Pixel);
+            }
+
+            return squareImage;
         }
 
 
         public class MenuItem
         {
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Price { get; set; }
             public string Kind { get; set; }
             public string Description { get; set; }
             public string ImageCover { get; set; } // Đây là đường dẫn hoặc URL đến ảnh
         }
-
-
 
         private void label2_Click(object sender, EventArgs e)
         {
