@@ -14,6 +14,7 @@ namespace Group_5
     public partial class AC_Home : Form
     {
         private AC_Menus menuForm;
+        private Boolean ismanage;
 
         public AC_Home()
         {
@@ -31,6 +32,7 @@ namespace Group_5
             {
                 menuForm = new AC_Menus(); // Tạo form mới
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel); // Hiển thị trong panel
+                //menuForm.Show();
             }
 
             menuForm.RefreshFullMenu();
@@ -48,32 +50,35 @@ namespace Group_5
 
         private void btn_bao_Click(object sender, EventArgs e)
         {
+            ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
                 menuForm = new AC_Menus(); // Tạo form mới nếu cần
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Bao");
+            menuForm.RefreshMenuItems("Bao", ismanage);
         }
 
         private void btn_sides_Click(object sender, EventArgs e)
         {
+            ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Side");
+            menuForm.RefreshMenuItems("Side", ismanage);
         }
 
         private void btn_bowls_Click(object sender, EventArgs e)
         {
+            ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Bowl");
+            menuForm.RefreshMenuItems("Bowl", ismanage);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -83,22 +88,24 @@ namespace Group_5
 
         private void btn_dessert_Click(object sender, EventArgs e)
         {
+            ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Dessert");
+            menuForm.RefreshMenuItems("Dessert", ismanage);
         }
 
         private void btn_drinks_Click(object sender, EventArgs e)
         {
+            ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Drink");
+            menuForm.RefreshMenuItems("Drink", ismanage);
         }
 
         private void panel_Paint(object sender, PaintEventArgs e)
