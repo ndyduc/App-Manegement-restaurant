@@ -33,7 +33,7 @@ namespace Group_5
 
             if (string.IsNullOrEmpty(selectedKind))
             {
-                addbtn.Visible = false; 
+                addbtn.Visible = true; 
                 DisplayMenuItems();
             }
             else
@@ -68,12 +68,10 @@ namespace Group_5
             flowLayoutPanel1.Controls.Clear(); // Xóa tất cả các mục hiện tại trong giao diện
             if (string.IsNullOrEmpty(kind))
             {
-                addbtn.Visible = true;
                 DisplayMenuItems(); // Hiển thị tất cả món ăn
             }
             else if(!ismanage)
             {
-                addbtn.Visible = false;
                 DisplayMenuItemsByKind(kind); // Hiển thị món ăn theo loại
             }
         }
@@ -85,6 +83,9 @@ namespace Group_5
             {
                 try
                 {
+                    // Xóa tất cả các điều khiển trong flowLayoutPanel1 trước khi thêm mới
+                    flowLayoutPanel1.Controls.Clear();
+
                     var menuItems = context.Menus  // Truy vấn bảng Menu từ DataContext
                         .Where(item => item.Kind == kind)  // Lọc theo loại món ăn (Kind)
                         .Select(item => new
@@ -105,7 +106,7 @@ namespace Group_5
                         MenuItem item = new MenuItem
                         {
                             Name = menuItem.Name,
-                            Price = menuItem.Price.ToString(),  // Nếu Price là int, chuyển sang string
+                            Price = menuItem.Price.ToString() + " VND",  // Nếu Price là int, chuyển sang string
                             Kind = menuItem.Kind,
                             Description = menuItem.Description,
                             ImageCover = menuItem.Imagecover
@@ -129,6 +130,9 @@ namespace Group_5
             {
                 try
                 {
+                    // Xóa tất cả các điều khiển trong flowLayoutPanel1 trước khi thêm mới
+                    flowLayoutPanel1.Controls.Clear();
+
                     var menuItems = context.Menus
                         .Select(item => new
                         {
@@ -148,7 +152,7 @@ namespace Group_5
                         MenuItem item = new MenuItem
                         {
                             Name = menuItem.Name,
-                            Price = menuItem.Price.ToString(),  // Nếu Price là int, chuyển sang string
+                            Price = menuItem.Price.ToString() + " VND",  // Nếu Price là int, chuyển sang string
                             Kind = menuItem.Kind,
                             Description = menuItem.Description,
                             ImageCover = menuItem.Imagecover
@@ -202,7 +206,7 @@ namespace Group_5
 
             // Tạo Label cho giá món ăn
             Label priceLabel = new Label();
-            priceLabel.Text = "Price: " + item.Price + " VND";
+            priceLabel.Text = "Price: " + item.Price;
             priceLabel.Location = new Point(10, 290);  // Dưới tên món ăn
             priceLabel.Size = new Size(180, 20);
 
@@ -272,7 +276,7 @@ namespace Group_5
 
             // Tạo Label cho giá món ăn
             Label priceLabel = new Label();
-            priceLabel.Text = "Price:        " + item.Price + " VND";
+            priceLabel.Text = "Price:        " + item.Price;
             priceLabel.Location = new Point(10, 305);  // Dưới tên món ăn
             priceLabel.Size = new Size(180, 20);
 
@@ -399,6 +403,11 @@ namespace Group_5
             // Lấy thông tin từ các control trong panel
             string name = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Font.Bold)?.Text;
             string price = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Price:"))?.Text.Replace("Price: ", "");
+            if (price != null)
+            {
+                // Xóa " VND" nếu có
+                price = price.Replace(" VND", "").Trim();
+            }
             string kind = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Kind:"))?.Text.Replace("Kind: ", "");
             string description = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Description:"))?.Text.Replace("Description: ", "");
             string imagePath = menuItemPanel.Controls.OfType<PictureBox>().FirstOrDefault()?.Tag?.ToString();
@@ -473,7 +482,19 @@ namespace Group_5
         private void addbtn_Click_1(object sender, EventArgs e)
         {
             AC_Addfood addFoodForm = new AC_Addfood();
-            addFoodForm.Show();
+            if (addFoodForm.ShowDialog() == DialogResult.OK)
+            {
+                LoadMenuItems();
+            }
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

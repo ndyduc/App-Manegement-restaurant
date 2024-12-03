@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Linq;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -14,14 +15,143 @@ namespace Group_5
         public AC_Addfood()
         {
             InitializeComponent();
+
+            pictureBox1.AllowDrop = true;
+            pictureBox1.DragEnter += PictureBox1_DragEnter;
+            pictureBox1.DragLeave += PictureBox1_DragLeave;
+            pictureBox1.DragDrop += PictureBox1_DragDrop;
         }
 
         private void AC_Addfood_Load(object sender, EventArgs e)
         {
-            // Load các loại món ăn vào ComboBox từ cơ sở dữ liệu
-            var kinds = db.Menus.Select(m => m.Kind).Distinct().ToList();
-            comboBox1.Items.AddRange(kinds.ToArray());
+            try
+            {
+                // Load các loại món ăn vào ComboBox từ cơ sở dữ liệu
+                var kinds = db.Menus.Select(m => m.Kind).Distinct().ToList();
+                comboBox1.Items.AddRange(kinds.ToArray());
+
+                // Đặt hình ảnh mặc định từ Resources
+                pictureBox1.Image = Properties.Resources.dropfile; // "dropfile" là tên ảnh trong Resources
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox1.Tag = "default";  // Đánh dấu là ảnh mặc định
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi khi tải dữ liệu: " + ex.Message);
+            }
         }
+
+
+        private void PictureBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (files.Length > 0 && IsImageFile(files[0])) // Chỉ cho phép file ảnh
+                {
+                    e.Effect = DragDropEffects.Copy;
+                }
+                else
+                {
+                    e.Effect = DragDropEffects.None;
+                }
+            }
+
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image = AdjustBrightness(pictureBox1.Image, -0.3f); // Giảm độ sáng
+            }
+        }
+
+        private void PictureBox1_DragLeave(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image = AdjustBrightness(pictureBox1.Image, 0.3f); // Khôi phục độ sáng
+            }
+        }
+
+        // Xử lý sự kiện thả file vào PictureBox
+        private void PictureBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length > 0)
+            {
+                string filePath = files[0];
+                if (IsImageFile(filePath)) // Kiểm tra file là ảnh
+                {
+                    try
+                    {
+                        // Kiểm tra ảnh cũ và giải phóng tài nguyên
+                        if (pictureBox1.Image != null && pictureBox1.Image != Properties.Resources.dropfile)
+                        {
+                            pictureBox1.Image.Dispose(); // Giải phóng tài nguyên ảnh cũ
+                        }
+
+                        // Thay thế ảnh mặc định (dropfile.jpg) bằng ảnh mới được thả vào
+                        pictureBox1.Image = Image.FromFile(filePath);
+                        pictureBox1.Tag = filePath; // Lưu đường dẫn ảnh vào Tag
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi tải ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng thả file ảnh hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private bool IsImageFile(string filePath)
+        {
+            string[] validExtensions = { ".jpg", ".jpeg", ".png", ".bmp", ".gif" };
+            string extension = Path.GetExtension(filePath).ToLower();
+            return validExtensions.Contains(extension);
+        }
+
+
+
+        private void PictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            // Đổi màu viền khi hover vào PictureBox
+            pictureBox1.BackColor = Color.LightGray; // Hoặc đổi sang màu mong muốn
+            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
+        }
+
+        private void PictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            // Đổi lại màu ban đầu khi chuột rời khỏi PictureBox
+            pictureBox1.BackColor = Color.Transparent; // Hoặc màu ban đầu bạn muốn
+            pictureBox1.BorderStyle = BorderStyle.None;
+        }
+
+        // Hàm điều chỉnh độ sáng
+private Image AdjustBrightness(Image image, float brightnessFactor)
+{
+    Bitmap tempBitmap = new Bitmap(image.Width, image.Height);
+    using (Graphics g = Graphics.FromImage(tempBitmap))
+    {
+        float[][] ptsArray ={
+            new float[] {1, 0, 0, 0, 0},  // Red
+            new float[] {0, 1, 0, 0, 0},  // Green
+            new float[] {0, 0, 1, 0, 0},  // Blue
+            new float[] {0, 0, 0, 1, 0},  // Alpha
+            new float[] {brightnessFactor, brightnessFactor, brightnessFactor, 0, 1}
+        };
+
+        System.Drawing.Imaging.ColorMatrix clrMatrix = new System.Drawing.Imaging.ColorMatrix(ptsArray);
+        System.Drawing.Imaging.ImageAttributes imgAttributes = new System.Drawing.Imaging.ImageAttributes();
+        imgAttributes.SetColorMatrix(clrMatrix);
+
+        g.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height),
+            0, 0, image.Width, image.Height, GraphicsUnit.Pixel, imgAttributes);
+    }
+    return tempBitmap;
+}
+
+
 
         private void Done_Click(object sender, EventArgs e)
         {

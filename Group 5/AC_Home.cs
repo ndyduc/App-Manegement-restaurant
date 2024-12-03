@@ -28,13 +28,19 @@ namespace Group_5
 
         private void btn_menus_Click(object sender, EventArgs e)
         {
-            if (menuForm == null || menuForm.IsDisposed) // Nếu form chưa tồn tại hoặc đã bị đóng
-            {
-                menuForm = new AC_Menus(); // Tạo form mới
-                Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel); // Hiển thị trong panel
-                //menuForm.Show();
-            }
+            // Kiểm tra và làm sạch panel trước khi hiển thị form mới
+            panel.Controls.Clear();
 
+            // Tạo form mới và hiển thị trong panel
+            menuForm = new AC_Menus();
+
+            // Đặt form vào Panel và chỉnh sửa Dock để chiếm toàn bộ Panel
+            menuForm.TopLevel = false;
+            menuForm.Dock = DockStyle.Fill;
+            panel.Controls.Add(menuForm);
+            menuForm.Show();
+
+            // Làm mới menu
             menuForm.RefreshFullMenu();
         }
 
