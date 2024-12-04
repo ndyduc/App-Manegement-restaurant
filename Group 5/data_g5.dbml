@@ -53,6 +53,7 @@
       <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="Order_Item_Order" Member="Item_Orders" ThisKey="ID" OtherKey="ID_Order" Type="Item_Order" />
     </Type>
   </Table>
