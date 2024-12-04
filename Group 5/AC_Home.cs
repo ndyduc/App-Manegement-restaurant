@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace Group_5
@@ -45,7 +46,7 @@ namespace Group_5
 
         private void AC_Home_Load(object sender, EventArgs e)
         {
-
+            LoadOrdersIntoComboBox();
         }
 
         private void btn_bao_Click(object sender, EventArgs e)
@@ -94,7 +95,7 @@ namespace Group_5
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Dessert", ismanage);
+            menuForm.RefreshMenuItems("Dessert", ismanage); 
         }
 
         private void btn_drinks_Click(object sender, EventArgs e)
@@ -108,6 +109,44 @@ namespace Group_5
             menuForm.RefreshMenuItems("Drink", ismanage);
         }
 
+
+        public void LoadOrdersIntoComboBox()
+        {
+            using (var context = new DataClasses1DataContext())
+            {
+                try
+                {
+                    DateTime today = DateTime.Today;
+
+                    var orders = context.Orders
+                        .Where(order => order.Status == 0 && order.Time.Date == today)
+                        .Select(order => new { order.ID, order.Name })  // Chọn các cột cần thiết
+                        .ToList();
+
+                    billwhere.DataSource = orders;
+                    billwhere.DisplayMember = "Name"; // Hiển thị tên đơn hàng
+                    billwhere.ValueMember = "ID";    // Giá trị của mỗi mục là ID của đơn hàng
+                }
+                catch (Exception ex) {MessageBox.Show("Error loading data: " + ex.Message);}
+            }
+        }
+
+        public void Set_bill(int where)
+        { 
+            billwhere.DataSource = null; // Hoặc billwhere.Items.Clear(); nếu bạn không muốn set lại DataSource.
+            LoadOrdersIntoComboBox();
+            billwhere.SelectedValue = where;
+
+            ismanage = false;
+            if (menuForm == null || menuForm.IsDisposed)
+            {
+                menuForm = new AC_Menus(); // Tạo form mới nếu cần
+                Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
+            }
+            menuForm.RefreshMenuItems("Bao", ismanage);
+        }
+
+
         private void panel_Paint(object sender, PaintEventArgs e)
         {
 
@@ -116,6 +155,17 @@ namespace Group_5
         private void Panel_bill_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void txt_menu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_Order_Click(object sender, EventArgs e)
+        {
+            AC_Orders orr = new AC_Orders(this);
+            Shareds.GeneralFunct.ShowFormInPanel(orr, panel);
         }
     }
 }

@@ -31,19 +31,27 @@ namespace Group_5.Component
 
                 this.Region = new Region(path);
 
-                // Vẽ lại background của Button
+                // Vẽ nền
                 using (Brush brush = new SolidBrush(this.BackColor))
                 {
                     pevent.Graphics.FillPath(brush, path);
                 }
 
-                // Vẽ lại văn bản của Button
-                using (Brush brush = new SolidBrush(this.ForeColor))
+                // Vẽ văn bản
+                using (Brush textBrush = new SolidBrush(this.ForeColor))
                 {
-                    pevent.Graphics.DrawString(this.Text, this.Font, brush, this.ClientRectangle, StringFormat.GenericDefault);
+                    StringFormat stringFormat = new StringFormat
+                    {
+                        Alignment = StringAlignment.Center, // Căn giữa ngang
+                        LineAlignment = StringAlignment.Center // Căn giữa dọc
+                    };
+
+                    pevent.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit; // Chất lượng vẽ chữ tốt hơn
+                    pevent.Graphics.DrawString(this.Text, this.Font, textBrush, this.ClientRectangle, stringFormat);
                 }
             }
         }
+
     }
 
 }
