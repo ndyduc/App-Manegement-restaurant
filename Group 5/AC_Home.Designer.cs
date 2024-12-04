@@ -201,16 +201,18 @@ namespace Group_5
             this.btn_Order.TabIndex = 2;
             this.btn_Order.Text = "Orders";
             this.btn_Order.UseVisualStyleBackColor = false;
+            this.btn_Order.Click += new System.EventHandler(this.btn_Order_Click);
             // 
             // txt_menu
             // 
             this.txt_menu.AutoSize = true;
             this.txt_menu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_menu.Location = new System.Drawing.Point(240, 29);
+            this.txt_menu.Location = new System.Drawing.Point(259, 24);
             this.txt_menu.Name = "txt_menu";
-            this.txt_menu.Size = new System.Drawing.Size(88, 29);
+            this.txt_menu.Size = new System.Drawing.Size(65, 29);
             this.txt_menu.TabIndex = 8;
-            this.txt_menu.Text = "MENU";
+            this.txt_menu.Text = "BILL";
+            this.txt_menu.Click += new System.EventHandler(this.txt_menu_Click);
             // 
             // billwhere
             // 

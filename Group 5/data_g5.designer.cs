@@ -999,6 +999,8 @@ namespace Group_5
 		
 		private System.Nullable<int> _Total;
 		
+		private System.DateTime _Time;
+		
 		private EntitySet<Item_Order> _Item_Orders;
 		
     #region Extensibility Method Definitions
@@ -1021,6 +1023,8 @@ namespace Group_5
     partial void OnStatusChanged();
     partial void OnTotalChanging(System.Nullable<int> value);
     partial void OnTotalChanged();
+    partial void OnTimeChanging(System.DateTime value);
+    partial void OnTimeChanged();
     #endregion
 		
 		public Order()
@@ -1185,6 +1189,26 @@ namespace Group_5
 					this._Total = value;
 					this.SendPropertyChanged("Total");
 					this.OnTotalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Time", DbType="DateTime NOT NULL")]
+		public System.DateTime Time
+		{
+			get
+			{
+				return this._Time;
+			}
+			set
+			{
+				if ((this._Time != value))
+				{
+					this.OnTimeChanging(value);
+					this.SendPropertyChanging();
+					this._Time = value;
+					this.SendPropertyChanged("Time");
+					this.OnTimeChanged();
 				}
 			}
 		}

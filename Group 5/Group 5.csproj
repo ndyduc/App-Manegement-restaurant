@@ -94,6 +94,15 @@
     <Compile Include="AC_AddtoBill.Designer.cs">
       <DependentUpon>AC_AddtoBill.cs</DependentUpon>
     </Compile>
+    <Compile Include="AC_Orders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AC_Orders.Designer.cs">
+      <DependentUpon>AC_Orders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Order_item.cs" />
+    <Compile Include="Model\Ordder.cs" />
+    <Compile Include="Model\Menui.cs" />
     <Compile Include="NDYDUC_data.cs">
       <DependentUpon>NDYDUC_data.xsd</DependentUpon>
     </Compile>
@@ -122,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AC_Home.resx">
       <DependentUpon>AC_Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC_Orders.resx">
+      <DependentUpon>AC_Orders.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AC_Tables.resx">
       <DependentUpon>AC_Tables.cs</DependentUpon>
