@@ -32,7 +32,6 @@ namespace Group_5
             // Kiểm tra và làm sạch panel trước khi hiển thị form mới
             panel.Controls.Clear();
 
-            // Tạo form mới và hiển thị trong panel
             menuForm = new AC_Menus();
 
             // Đặt form vào Panel và chỉnh sửa Dock để chiếm toàn bộ Panel
@@ -60,10 +59,13 @@ namespace Group_5
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
-                menuForm = new AC_Menus(); // Tạo form mới nếu cần
+                menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Bao", ismanage);
+
+            int selectedId = (int)billwhere.SelectedValue; 
+            if(selectedId == null) selectedId =0;
+            menuForm.RefreshMenuItems("Bao", ismanage, selectedId);
         }
 
         private void btn_sides_Click(object sender, EventArgs e)
@@ -74,7 +76,8 @@ namespace Group_5
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Side", ismanage);
+            int selectedId = (int)billwhere.SelectedValue;
+            menuForm.RefreshMenuItems("Side", ismanage, selectedId);
         }
 
         private void btn_bowls_Click(object sender, EventArgs e)
@@ -85,7 +88,8 @@ namespace Group_5
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Bowl", ismanage);
+            int selectedId = (int)billwhere.SelectedValue;
+            menuForm.RefreshMenuItems("Bowl", ismanage, selectedId);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -101,18 +105,21 @@ namespace Group_5
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Dessert", ismanage); 
+            int selectedId = (int)billwhere.SelectedValue;
+            menuForm.RefreshMenuItems("Dessert", ismanage, selectedId); 
         }
 
         private void btn_drinks_Click(object sender, EventArgs e)
         {
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
-            {
+            { 
                 menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Drink", ismanage);
+            int selectedId = (int)billwhere.SelectedValue;
+            if (selectedId == null) selectedId = 0;
+            menuForm.RefreshMenuItems("Drink", ismanage, selectedId);
         }
 
 
@@ -133,7 +140,11 @@ namespace Group_5
                     billwhere.DisplayMember = "Name"; // Hiển thị tên đơn hàng
                     billwhere.ValueMember = "ID";    // Giá trị của mỗi mục là ID của đơn hàng
                 }
-                catch (Exception ex) {MessageBox.Show("Error loading data: " + ex.Message);}
+                catch (Exception ex) {
+                    MessageBox.Show("Error loading data: " + ex.Message);
+                    Console.WriteLine(ex.Message);
+                }
+
             }
         }
 
@@ -146,10 +157,12 @@ namespace Group_5
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
-                menuForm = new AC_Menus(); // Tạo form mới nếu cần
+                menuForm = new AC_Menus();
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            menuForm.RefreshMenuItems("Bao", ismanage);
+            int selectedId = (int)billwhere.SelectedValue;
+            if (selectedId == null) selectedId = 0;
+            menuForm.RefreshMenuItems("Bao", ismanage, selectedId);
         }
 
 

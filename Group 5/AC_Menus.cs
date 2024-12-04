@@ -39,7 +39,7 @@ namespace Group_5
             else
             {
                 // Có `kind`, hiển thị sản phẩm theo loại
-                DisplayMenuItemsByKind(selectedKind);
+                DisplayMenuItemsByKind(selectedKind, 0);
             }
         }
 
@@ -51,7 +51,7 @@ namespace Group_5
             }
             else
             {
-                DisplayMenuItemsByKind(selectedKind);
+                DisplayMenuItemsByKind(selectedKind, 0);
             }
         }
 
@@ -62,7 +62,7 @@ namespace Group_5
             DisplayMenuItems(); // Giả sử đây là phương thức để load tất cả món ăn
         }
 
-        public void RefreshMenuItems(string kind, Boolean ismanage)
+        public void RefreshMenuItems(string kind, Boolean ismanage, int abc)
         {
             selectedKind = kind; // Cập nhật loại món ăn
             flowLayoutPanel1.Controls.Clear(); // Xóa tất cả các mục hiện tại trong giao diện
@@ -72,12 +72,12 @@ namespace Group_5
             }
             else if(!ismanage)
             {
-                DisplayMenuItemsByKind(kind); // Hiển thị món ăn theo loại
+                DisplayMenuItemsByKind(kind, abc); // Hiển thị món ăn theo loại
             }
         }
 
 
-        public void DisplayMenuItemsByKind(string kind)
+        public void DisplayMenuItemsByKind(string kind,int abc)
         {
             using (var context = new DataClasses1DataContext())  // Sử dụng DataContext của LINQ
             {
@@ -111,7 +111,7 @@ namespace Group_5
                             Description = menuItem.Description,
                             ImageCover = menuItem.Imagecover
                         };
-                        CreateMenuItemPanel(item);
+                        CreateMenuItemPanel(item, abc);
                     }
 
                 }
@@ -171,7 +171,7 @@ namespace Group_5
             }
         }
 
-        private async void CreateMenuItemPanel(MenuItem item)
+        private async void CreateMenuItemPanel(MenuItem item, int id_bill)
         {
             // Tạo một Panel cho món ăn
             Panel menuItemPanel = new Panel();
@@ -234,7 +234,7 @@ namespace Group_5
                 int idfood = item.Id;  // Giả sử MenuItem có trường Id
                 int idorder = 1;  // Giả sử idorder là 1, bạn có thể thay thế bằng giá trị thực tế
 
-                AC_AddtoBill addToBillForm = new AC_AddtoBill(idfood, idorder);
+                AC_AddtoBill addToBillForm = new AC_AddtoBill(idfood, idorder, id_bill);
                 addToBillForm.Show();
             };
         }
@@ -312,7 +312,7 @@ namespace Group_5
             this.flowLayoutPanel1.Controls.Add(menuItemPanel);
         }
 
-        private async void LoadImageFromUrl(string imageUrl, PictureBox pictureBox)
+        public async void LoadImageFromUrl(string imageUrl, PictureBox pictureBox)
         {
             if (string.IsNullOrWhiteSpace(imageUrl))
             {

@@ -49,6 +49,8 @@ namespace Group_5
 
             this.Controls.Add(addtobillbtn);
             this.id_bill = id_bill;
+
+            if(id_bill != null) bill_here.SelectedValue = id_bill;
         }
 
         private Menui GetMenuItem(int idfood)
@@ -123,7 +125,7 @@ namespace Group_5
                 }
                 catch (Exception ex) { MessageBox.Show("Error loading data: " + ex.Message); }
             }
-            if (id_bill != null) bill_here.SelectedValue = id_bill;
+            if (id_bill != null && id_bill != 0) bill_here.SelectedValue = id_bill;
         }
     }
 
