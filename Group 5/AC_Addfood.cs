@@ -26,9 +26,6 @@ namespace Group_5
         {
             try
             {
-                // Load các loại món ăn vào ComboBox từ cơ sở dữ liệu
-                var kinds = db.Menus.Select(m => m.Kind).Distinct().ToList();
-                comboBox1.Items.AddRange(kinds.ToArray());
 
                 // Đặt hình ảnh mặc định từ Resources
                 pictureBox1.Image = Properties.Resources.dropfile; // "dropfile" là tên ảnh trong Resources
@@ -128,12 +125,13 @@ namespace Group_5
         }
 
         // Hàm điều chỉnh độ sáng
-private Image AdjustBrightness(Image image, float brightnessFactor)
-{
-    Bitmap tempBitmap = new Bitmap(image.Width, image.Height);
-    using (Graphics g = Graphics.FromImage(tempBitmap))
-    {
-        float[][] ptsArray ={
+        private Image AdjustBrightness(Image image, float brightnessFactor)
+        {
+            Bitmap tempBitmap = new Bitmap(image.Width, image.Height);
+
+            using (Graphics g = Graphics.FromImage(tempBitmap))
+            {
+                float[][] ptsArray ={
             new float[] {1, 0, 0, 0, 0},  // Red
             new float[] {0, 1, 0, 0, 0},  // Green
             new float[] {0, 0, 1, 0, 0},  // Blue
@@ -141,85 +139,96 @@ private Image AdjustBrightness(Image image, float brightnessFactor)
             new float[] {brightnessFactor, brightnessFactor, brightnessFactor, 0, 1}
         };
 
-        System.Drawing.Imaging.ColorMatrix clrMatrix = new System.Drawing.Imaging.ColorMatrix(ptsArray);
-        System.Drawing.Imaging.ImageAttributes imgAttributes = new System.Drawing.Imaging.ImageAttributes();
-        imgAttributes.SetColorMatrix(clrMatrix);
+                System.Drawing.Imaging.ColorMatrix clrMatrix = new System.Drawing.Imaging.ColorMatrix(ptsArray);
+                System.Drawing.Imaging.ImageAttributes imgAttributes = new System.Drawing.Imaging.ImageAttributes();
+                imgAttributes.SetColorMatrix(clrMatrix);
 
-        g.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height),
-            0, 0, image.Width, image.Height, GraphicsUnit.Pixel, imgAttributes);
-    }
-    return tempBitmap;
-}
+                g.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height),
+                    0, 0, image.Width, image.Height, GraphicsUnit.Pixel, imgAttributes);
+            }
+
+            return tempBitmap;
+        }
 
 
 
         private void Done_Click(object sender, EventArgs e)
         {
-            // Lấy thông tin từ các control
             string name = textBox1.Text;
-            string kind = comboBox1.SelectedItem?.ToString(); // ComboBox cho loại món ăn
+            string kind = comboBox1.SelectedItem?.ToString();
             string priceText = textBox3.Text;
             string description = richTextBox1.Text;
             string imageCover = pictureBox1.Tag?.ToString();
 
-            // Kiểm tra dữ liệu nhập vào
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(kind) || string.IsNullOrEmpty(priceText) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(imageCover))
+            if (string.IsNullOrEmpty(name) ||
+                string.IsNullOrEmpty(kind) ||
+                string.IsNullOrEmpty(priceText) ||
+                string.IsNullOrEmpty(description) ||
+                string.IsNullOrEmpty(imageCover) ||
+                imageCover == "default")
             {
-                MessageBox.Show("Please fill in all fields!");
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin và chọn hình ảnh hợp lệ!");
                 return;
             }
-
 
             if (!decimal.TryParse(priceText, out decimal priceDecimal))
             {
-                MessageBox.Show("Price must be a valid number!");
+                MessageBox.Show("Giá phải là một số hợp lệ!");
                 return;
             }
 
-            // Ép kiểu sang int nếu cột Price trong cơ sở dữ liệu là int
             int price = (int)priceDecimal;
 
             try
             {
-                // Thêm món ăn mới vào cơ sở dữ liệu
                 Menu newMenuItem = new Menu
                 {
                     Name = name,
                     Kind = kind,
                     Price = price,
                     Description = description,
-                    Imagecover = imageCover
+                    Imagecover = imageCover // Lưu URL của ảnh
                 };
 
-                db.Menus.InsertOnSubmit(newMenuItem); // Đưa vào hàng đợi thêm
-                db.SubmitChanges(); // Áp dụng thay đổi vào DB
+                db.Menus.InsertOnSubmit(newMenuItem);
+                db.SubmitChanges();
 
-                MessageBox.Show("Food item added successfully!");
-                this.Close(); // Đóng form sau khi thêm thành công
+                MessageBox.Show("Món ăn đã được thêm thành công!");
+                this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Lỗi khi lưu vào cơ sở dữ liệu: " + ex.Message);
             }
         }
 
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            // Tạo đối tượng OpenFileDialog để người dùng chọn ảnh
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp"; // Chỉ chọn file ảnh
-            openFileDialog.Title = "Select an Image";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp", // Chỉ chọn file ảnh
+                Title = "Select an Image"
+            };
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Lấy đường dẫn file ảnh
-                string imagePath = openFileDialog.FileName;
+                try
+                {
+                    // Giải phóng tài nguyên ảnh cũ (nếu không phải ảnh mặc định)
+                    if (pictureBox1.Image != null && pictureBox1.Tag?.ToString() != "default")
+                    {
+                        pictureBox1.Image.Dispose();
+                    }
 
-                // Hiển thị ảnh trong PictureBox
-                pictureBox1.Image = Image.FromFile(imagePath);
-
-                // Lưu đường dẫn ảnh vào Tag của PictureBox
-                pictureBox1.Tag = imagePath;
+                    // Gán ảnh mới
+                    pictureBox1.Image = Image.FromFile(openFileDialog.FileName);
+                    pictureBox1.Tag = openFileDialog.FileName; // Lưu đường dẫn vào Tag
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading image: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

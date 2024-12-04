@@ -23,15 +23,21 @@ namespace Group_5
 
             // Gán giá trị ban đầu vào các control
             foodName = name; // Lưu tên món cũ để cập nhật
-            textBox1.Text = name;
-            textBox2.Text = price;
-            comboBox1.Text = kind;
-            richTextBox1.Text = description;
+            textBox1.Text = name;  // Hiển thị tên món ăn
+            textBox2.Text = price;  // Hiển thị giá
+            comboBox1.Text = kind;  // Hiển thị loại món ăn
+            richTextBox1.Text = description;  // Hiển thị mô tả món ăn
 
+            // Kiểm tra nếu có đường dẫn hình ảnh hợp lệ
             if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
             {
-                pictureBox1.Image = Image.FromFile(imagePath);
-                pictureBox1.Tag = imagePath;
+                pictureBox1.Image = Image.FromFile(imagePath);  // Hiển thị hình ảnh nếu đường dẫn hợp lệ
+                pictureBox1.Tag = imagePath;  // Lưu đường dẫn hình ảnh vào Tag của PictureBox
+            }
+            else
+            {
+                pictureBox1.Image = Properties.Resources.noimg;  // Nếu không có ảnh, hiển thị ảnh mặc định
+                pictureBox1.Tag = null;  // Đặt lại Tag nếu không có hình ảnh
             }
         }
 
