@@ -11,39 +11,42 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using Group_5.Model;
 
 namespace Group_5
 {
     public partial class AC_Menus : Form
     {
         private string selectedKind = null;
+        private AC_Home home;
 
-        public AC_Menus()
+        public AC_Menus(AC_Home home)
         {
             InitializeComponent();
+            this.home = home;
         }
 
-        public AC_Menus(string kind)
+        public AC_Menus(string kind, AC_Home home)
         {
             InitializeComponent();
             selectedKind = kind; // Gán giá trị `kind` truyền vào
+            this.home = home;
         }
         private void AC_Menus_Load(object sender, EventArgs e)
         {
 
             if (string.IsNullOrEmpty(selectedKind))
             {
-                addbtn.Visible = true; 
                 DisplayMenuItems();
             }
             else
             {
                 // Có `kind`, hiển thị sản phẩm theo loại
-                DisplayMenuItemsByKind(selectedKind, 0);
+                DisplayMenuItemsByKind(selectedKind);
             }
         }
 
-        private void LoadMenuItems()
+        private void LoadMenuis()
         {
             if (string.IsNullOrEmpty(selectedKind))
             {
@@ -51,19 +54,21 @@ namespace Group_5
             }
             else
             {
-                DisplayMenuItemsByKind(selectedKind, 0);
+                DisplayMenuItemsByKind(selectedKind);
             }
         }
 
         public void RefreshFullMenu()
         {
+            addbtn.Visible = true;
             flowLayoutPanel1.Controls.Clear();
             // Ví dụ: Tải toàn bộ danh sách món ăn từ cơ sở dữ liệu
             DisplayMenuItems(); // Giả sử đây là phương thức để load tất cả món ăn
         }
 
-        public void RefreshMenuItems(string kind, Boolean ismanage, int abc)
+        public void RefreshMenuItems(string kind, Boolean ismanage)
         {
+            addbtn.Visible = false;
             selectedKind = kind; // Cập nhật loại món ăn
             flowLayoutPanel1.Controls.Clear(); // Xóa tất cả các mục hiện tại trong giao diện
             if (string.IsNullOrEmpty(kind))
@@ -72,12 +77,12 @@ namespace Group_5
             }
             else if(!ismanage)
             {
-                DisplayMenuItemsByKind(kind, abc); // Hiển thị món ăn theo loại
+                DisplayMenuItemsByKind(kind); // Hiển thị món ăn theo loại
             }
         }
 
 
-        public void DisplayMenuItemsByKind(string kind,int abc)
+        public void DisplayMenuItemsByKind(string kind)
         {
             using (var context = new DataClasses1DataContext())  // Sử dụng DataContext của LINQ
             {
@@ -86,10 +91,11 @@ namespace Group_5
                     // Xóa tất cả các điều khiển trong flowLayoutPanel1 trước khi thêm mới
                     flowLayoutPanel1.Controls.Clear();
 
-                    var menuItems = context.Menus  // Truy vấn bảng Menu từ DataContext
+                    var Menuis = context.Menus  // Truy vấn bảng Menu từ DataContext
                         .Where(item => item.Kind == kind)  // Lọc theo loại món ăn (Kind)
                         .Select(item => new
                         {
+                            item.ID,
                             item.Name,
                             item.Price,
                             item.Kind,
@@ -98,20 +104,21 @@ namespace Group_5
                         })
                         .ToList();
 
-                    for (int i = 0; i < menuItems.Count; i++)
+                    for (int i = 0; i < Menuis.Count; i++)
                     {
-                        var menuItem = menuItems[i];
+                        var Menui = Menuis[i];
 
-                        // Tạo đối tượng MenuItem từ kết quả truy vấn
-                        MenuItem item = new MenuItem
+                        // Tạo đối tượng Menui từ kết quả truy vấn
+                        Menui item = new Menui
                         {
-                            Name = menuItem.Name,
-                            Price = menuItem.Price.ToString() + " VND",  // Nếu Price là int, chuyển sang string
-                            Kind = menuItem.Kind,
-                            Description = menuItem.Description,
-                            ImageCover = menuItem.Imagecover
+                            Id = Menui.ID,
+                            Name = Menui.Name,
+                            Price = Menui.Price.ToString() + " VND",  // Nếu Price là int, chuyển sang string
+                            Kind = Menui.Kind,
+                            Description = Menui.Description,
+                            ImageCover = Menui.Imagecover
                         };
-                        CreateMenuItemPanel(item, abc);
+                        CreateMenuiPanel(item);
                     }
 
                 }
@@ -133,9 +140,10 @@ namespace Group_5
                     // Xóa tất cả các điều khiển trong flowLayoutPanel1 trước khi thêm mới
                     flowLayoutPanel1.Controls.Clear();
 
-                    var menuItems = context.Menus
+                    var Menuis = context.Menus
                         .Select(item => new
                         {
+                            item.ID,
                             item.Name,
                             item.Price,
                             item.Kind,
@@ -144,22 +152,23 @@ namespace Group_5
                         })
                         .ToList();
 
-                    for (int i = 0; i < menuItems.Count; i++)
+                    for (int i = 0; i < Menuis.Count; i++)
                     {
-                        var menuItem = menuItems[i];
+                        var Menui = Menuis[i];
 
-                        // Tạo đối tượng MenuItem từ kết quả truy vấn
-                        MenuItem item = new MenuItem
+                        // Tạo đối tượng Menui từ kết quả truy vấn
+                        Menui item = new Menui
                         {
-                            Name = menuItem.Name,
-                            Price = menuItem.Price.ToString() + " VND",  // Nếu Price là int, chuyển sang string
-                            Kind = menuItem.Kind,
-                            Description = menuItem.Description,
-                            ImageCover = menuItem.Imagecover
+                            Id = Menui.ID,
+                            Name = Menui.Name,
+                            Price = Menui.Price.ToString() + " VND",  // Nếu Price là int, chuyển sang string
+                            Kind = Menui.Kind,
+                            Description = Menui.Description,
+                            ImageCover = Menui.Imagecover
                         };
 
                         // Gọi phương thức để hiển thị món ăn
-                        CreateMenuItemAll(item);
+                        CreateMenuiAll(item);
                     }
 
                     Console.WriteLine(flowLayoutPanel1.Height);
@@ -171,13 +180,13 @@ namespace Group_5
             }
         }
 
-        private async void CreateMenuItemPanel(MenuItem item, int id_bill)
+        private async void CreateMenuiPanel(Menui item)
         {
             // Tạo một Panel cho món ăn
-            Panel menuItemPanel = new Panel();
-            menuItemPanel.Size = new Size(200, 0);  // Khởi tạo chiều cao panel là 0, sẽ tính toán sau
-            menuItemPanel.BorderStyle = BorderStyle.FixedSingle;
-            menuItemPanel.Margin = new Padding(10,5,10,5);
+            Panel MenuiPanel = new Panel();
+            MenuiPanel.Size = new Size(200, 0);  // Khởi tạo chiều cao panel là 0, sẽ tính toán sau
+            MenuiPanel.BorderStyle = BorderStyle.FixedSingle;
+            MenuiPanel.Margin = new Padding(10,5,10,5);
 
             // Tạo PictureBox cho ảnh món ăn (ở trên cùng)
             PictureBox pictureBox = new PictureBox();
@@ -190,7 +199,7 @@ namespace Group_5
             Label nameLabel = new Label();
             nameLabel.Text = item.Name;
             nameLabel.Font = new Font("Arial", 12, FontStyle.Bold);
-            nameLabel.Location = new Point(10, 230);  // Dưới ảnh
+            nameLabel.Location = new Point(10, 210);  // Dưới ảnh
             nameLabel.Size = new Size(180, 20);
 
             // Tạo Label cho loại món ăn
@@ -201,52 +210,47 @@ namespace Group_5
             // Tạo Label cho mô tả món ăn
             Label descriptionLabel = new Label();
             descriptionLabel.Text = item.Description;
-            descriptionLabel.Location = new Point(10, 260);  // Dưới loại món ăn
+            descriptionLabel.Location = new Point(10, 230);  // Dưới loại món ăn
             descriptionLabel.Size = new Size(180, 30);
 
             // Tạo Label cho giá món ăn
             Label priceLabel = new Label();
             priceLabel.Text = "Price: " + item.Price;
-            priceLabel.Location = new Point(10, 290);  // Dưới tên món ăn
+            priceLabel.Location = new Point(100, 270);  // Dưới tên món ăn
             priceLabel.Size = new Size(180, 20);
 
             // Thêm các điều khiển vào Panel
-            menuItemPanel.Controls.Add(pictureBox);
-            menuItemPanel.Controls.Add(nameLabel);
-            menuItemPanel.Controls.Add(priceLabel);
-            menuItemPanel.Controls.Add(kindLabel);
-            menuItemPanel.Controls.Add(descriptionLabel);
+            MenuiPanel.Controls.Add(pictureBox);
+            MenuiPanel.Controls.Add(nameLabel);
+            MenuiPanel.Controls.Add(priceLabel);
+            MenuiPanel.Controls.Add(kindLabel);
+            MenuiPanel.Controls.Add(descriptionLabel);
 
             LoadImageFromUrl(item.ImageCover, pictureBox);
 
-            //LoadImageFromUrl(item.ImageCover, pictureBox);
-
             // Tính toán chiều cao của Panel để phù hợp với các điều khiển
-            int totalHeight =   pictureBox.Height + nameLabel.Height + priceLabel.Height + 10 + kindLabel.Height + 10 + descriptionLabel.Height;
-            menuItemPanel.Height = totalHeight;  // Cập nhật chiều cao của Panel
+            int totalHeight =   pictureBox.Height + nameLabel.Height + priceLabel.Height + kindLabel.Height + 10 + descriptionLabel.Height;
+            MenuiPanel.Height = totalHeight;  // Cập nhật chiều cao của Panel
 
             // Thêm Panel vào FlowLayoutPanel
-            this.flowLayoutPanel1.Controls.Add(menuItemPanel);
+            this.flowLayoutPanel1.Controls.Add(MenuiPanel);
 
             // Tạo sự kiện click cho Panel
-            menuItemPanel.Click += (sender, e) =>
+            MenuiPanel.Click += (sender, e) =>
             {
-                int idfood = item.Id;  // Giả sử MenuItem có trường Id
-                int idorder = 1;  // Giả sử idorder là 1, bạn có thể thay thế bằng giá trị thực tế
-
-                AC_AddtoBill addToBillForm = new AC_AddtoBill(idfood, idorder, id_bill);
+                AC_AddtoBill addToBillForm = new AC_AddtoBill(item.Id, home);
                 addToBillForm.Show();
             };
         }
 
 
-        private async void CreateMenuItemAll(MenuItem item)
+        private async void CreateMenuiAll(Menui item)
         {
             // Tạo một Panel cho món ăn
-            Panel menuItemPanel = new Panel();
-            menuItemPanel.Size = new Size(200, 0);  // Khởi tạo chiều cao panel là 0, sẽ tính toán sau
-            menuItemPanel.BorderStyle = BorderStyle.FixedSingle;
-            menuItemPanel.Margin = new Padding(10,5,10,5);
+            Panel MenuiPanel = new Panel();
+            MenuiPanel.Size = new Size(200, 0);  // Khởi tạo chiều cao panel là 0, sẽ tính toán sau
+            MenuiPanel.BorderStyle = BorderStyle.FixedSingle;
+            MenuiPanel.Margin = new Padding(10,5,10,5);
 
             // Tạo PictureBox cho ảnh món ăn (ở trên cùng)
             PictureBox pictureBox = new PictureBox();
@@ -295,21 +299,21 @@ namespace Group_5
             deleteButton.Click += Delete_Click;  // Gọi sự kiện khi nhấn nút Delete
 
             // Thêm các điều khiển vào Panel
-            menuItemPanel.Controls.Add(pictureBox);
-            menuItemPanel.Controls.Add(nameLabel);
-            menuItemPanel.Controls.Add(priceLabel);
-            menuItemPanel.Controls.Add(kindLabel);
-            menuItemPanel.Controls.Add(descriptionLabel);
-            menuItemPanel.Controls.Add(editButton);
-            menuItemPanel.Controls.Add(deleteButton);
+            MenuiPanel.Controls.Add(pictureBox);
+            MenuiPanel.Controls.Add(nameLabel);
+            MenuiPanel.Controls.Add(priceLabel);
+            MenuiPanel.Controls.Add(kindLabel);
+            MenuiPanel.Controls.Add(descriptionLabel);
+            MenuiPanel.Controls.Add(editButton);
+            MenuiPanel.Controls.Add(deleteButton);
 
             LoadImageFromUrl(item.ImageCover, pictureBox);
 
             // Tính toán chiều cao của Panel để phù hợp với các điều khiển
             int totalHeight = pictureBox.Height + nameLabel.Height + 10 + priceLabel.Height + 10 + kindLabel.Height + 10 + descriptionLabel.Height + 10 + editButton.Height + 10;
-            menuItemPanel.Height = totalHeight;  // Cập nhật chiều cao của Panel
+            MenuiPanel.Height = totalHeight;  // Cập nhật chiều cao của Panel
 
-            this.flowLayoutPanel1.Controls.Add(menuItemPanel);
+            this.flowLayoutPanel1.Controls.Add(MenuiPanel);
         }
 
         public async void LoadImageFromUrl(string imageUrl, PictureBox pictureBox)
@@ -372,15 +376,6 @@ namespace Group_5
         }
 
 
-        public class MenuItem
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Price { get; set; }
-            public string Kind { get; set; }
-            public string Description { get; set; }
-            public string ImageCover { get; set; } // Đây là đường dẫn hoặc URL đến ảnh
-        }
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -397,20 +392,20 @@ namespace Group_5
             Button editButton = sender as Button;
             if (editButton == null) return;
 
-            Panel menuItemPanel = editButton.Parent as Panel;
-            if (menuItemPanel == null) return;
+            Panel MenuiPanel = editButton.Parent as Panel;
+            if (MenuiPanel == null) return;
 
             // Lấy thông tin từ các control trong panel
-            string name = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Font.Bold)?.Text;
-            string price = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Price:"))?.Text.Replace("Price: ", "");
+            string name = MenuiPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Font.Bold)?.Text;
+            string price = MenuiPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Price:"))?.Text.Replace("Price: ", "");
             if (price != null)
             {
                 // Xóa " VND" nếu có
                 price = price.Replace(" VND", "").Trim();
             }
-            string kind = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Kind:"))?.Text.Replace("Kind: ", "");
-            string description = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Description:"))?.Text.Replace("Description: ", "");
-            string imagePath = menuItemPanel.Controls.OfType<PictureBox>().FirstOrDefault()?.Tag?.ToString();
+            string kind = MenuiPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Kind:"))?.Text.Replace("Kind: ", "");
+            string description = MenuiPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Description:"))?.Text.Replace("Description: ", "");
+            string imagePath = MenuiPanel.Controls.OfType<PictureBox>().FirstOrDefault()?.Tag?.ToString();
             //Console.WriteLine(description + "abc");
             // Kiểm tra dữ liệu
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(price) || string.IsNullOrEmpty(kind)) return;
@@ -420,7 +415,7 @@ namespace Group_5
             if (editForm.ShowDialog() == DialogResult.OK)
             {
                 // Cập nhật giao diện sau khi chỉnh sửa thành công
-                LoadMenuItems();
+                LoadMenuis();
             }
         }
 
@@ -433,12 +428,12 @@ namespace Group_5
                 return;
 
             // Lấy Panel chứa Button này
-            Panel menuItemPanel = deleteButton.Parent as Panel;
-            if (menuItemPanel == null)
+            Panel MenuiPanel = deleteButton.Parent as Panel;
+            if (MenuiPanel == null)
                 return;
 
             // Tìm Label chứa tên món ăn trong Panel
-            Label nameLabel = menuItemPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Font.Bold); // Tên món ăn là Label in đậm
+            Label nameLabel = MenuiPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Font.Bold); // Tên món ăn là Label in đậm
             if (nameLabel == null)
                 return;
 
@@ -452,17 +447,17 @@ namespace Group_5
             using (var context = new DataClasses1DataContext())  // Sử dụng LINQ DataContext
             {
                 // Tìm món ăn theo tên
-                var menuItem = context.Menus.FirstOrDefault(m => m.Name == name);
-                if (menuItem != null)
+                var Menui = context.Menus.FirstOrDefault(m => m.Name == name);
+                if (Menui != null)
                 {
                     try
                     {
                         // Xóa món ăn khỏi cơ sở dữ liệu
-                        context.Menus.DeleteOnSubmit(menuItem);
+                        context.Menus.DeleteOnSubmit(Menui);
                         context.SubmitChanges();
 
                         // Xóa Panel khỏi giao diện
-                        flowLayoutPanel1.Controls.Remove(menuItemPanel);
+                        flowLayoutPanel1.Controls.Remove(MenuiPanel);
 
                         MessageBox.Show("Food item deleted successfully!");
                     }
@@ -484,7 +479,7 @@ namespace Group_5
             AC_Addfood addFoodForm = new AC_Addfood();
             if (addFoodForm.ShowDialog() == DialogResult.OK)
             {
-                LoadMenuItems();
+                LoadMenuis();
             }
         }
 

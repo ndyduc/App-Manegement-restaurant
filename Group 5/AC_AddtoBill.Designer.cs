@@ -31,7 +31,7 @@
             this.imgfood = new System.Windows.Forms.PictureBox();
             this.exitbtn = new System.Windows.Forms.Button();
             this.lessbtn = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txt_amount = new System.Windows.Forms.Label();
             this.morebtn = new System.Windows.Forms.Button();
             this.bill_here = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,7 +40,9 @@
             this.txt_note = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txt_description = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgfood)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // imgfood
@@ -76,22 +78,23 @@
             this.lessbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lessbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lessbtn.ForeColor = System.Drawing.Color.Maroon;
-            this.lessbtn.Location = new System.Drawing.Point(69, 365);
+            this.lessbtn.Location = new System.Drawing.Point(65, 359);
             this.lessbtn.Name = "lessbtn";
             this.lessbtn.Size = new System.Drawing.Size(40, 40);
             this.lessbtn.TabIndex = 3;
             this.lessbtn.Text = "-";
             this.lessbtn.UseVisualStyleBackColor = true;
+            this.lessbtn.Click += new System.EventHandler(this.lessbtn_Click);
             // 
-            // label1
+            // txt_amount
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(124, 365);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 40);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "1";
+            this.txt_amount.AutoSize = true;
+            this.txt_amount.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_amount.Location = new System.Drawing.Point(125, 359);
+            this.txt_amount.Name = "txt_amount";
+            this.txt_amount.Size = new System.Drawing.Size(33, 37);
+            this.txt_amount.TabIndex = 5;
+            this.txt_amount.Text = "1";
             // 
             // morebtn
             // 
@@ -99,17 +102,18 @@
             this.morebtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.morebtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.morebtn.ForeColor = System.Drawing.Color.Maroon;
-            this.morebtn.Location = new System.Drawing.Point(176, 365);
+            this.morebtn.Location = new System.Drawing.Point(192, 359);
             this.morebtn.Name = "morebtn";
             this.morebtn.Size = new System.Drawing.Size(40, 40);
             this.morebtn.TabIndex = 6;
             this.morebtn.Text = "+";
             this.morebtn.UseVisualStyleBackColor = true;
+            this.morebtn.Click += new System.EventHandler(this.morebtn_Click);
             // 
             // bill_here
             // 
             this.bill_here.FormattingEnabled = true;
-            this.bill_here.Location = new System.Drawing.Point(453, 16);
+            this.bill_here.Location = new System.Drawing.Point(540, 19);
             this.bill_here.Name = "bill_here";
             this.bill_here.Size = new System.Drawing.Size(121, 28);
             this.bill_here.TabIndex = 7;
@@ -120,9 +124,8 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(315, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 29);
+            this.label2.Size = new System.Drawing.Size(0, 29);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Add to bill :";
             // 
             // txt_name
             // 
@@ -173,12 +176,26 @@
             this.txt_description.Size = new System.Drawing.Size(277, 90);
             this.txt_description.TabIndex = 14;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Group_5.Properties.Resources.Border;
+            this.pictureBox1.Location = new System.Drawing.Point(37, 341);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(235, 80);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
+            // 
             // AC_AddtoBill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.morebtn);
+            this.Controls.Add(this.txt_amount);
+            this.Controls.Add(this.lessbtn);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txt_description);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txt_note);
@@ -186,9 +203,6 @@
             this.Controls.Add(this.txt_name);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.bill_here);
-            this.Controls.Add(this.morebtn);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lessbtn);
             this.Controls.Add(this.exitbtn);
             this.Controls.Add(this.imgfood);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -197,6 +211,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.AC_AddtoBill_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imgfood)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,7 +222,7 @@
         private System.Windows.Forms.PictureBox imgfood;
         private System.Windows.Forms.Button exitbtn;
         private System.Windows.Forms.Button lessbtn;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label txt_amount;
         private System.Windows.Forms.Button morebtn;
         private System.Windows.Forms.ComboBox bill_here;
         private System.Windows.Forms.Label label2;
@@ -216,5 +231,6 @@
         private System.Windows.Forms.RichTextBox txt_note;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txt_description;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

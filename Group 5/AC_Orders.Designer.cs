@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.mum = new System.Windows.Forms.FlowLayoutPanel();
-            this.allbtn = new System.Windows.Forms.Button();
             this.donebtn = new System.Windows.Forms.Button();
             this.presentbtn = new System.Windows.Forms.Button();
             this.Addbtn = new System.Windows.Forms.Button();
@@ -37,22 +36,11 @@
             // 
             // mum
             // 
+            this.mum.AutoScroll = true;
             this.mum.Location = new System.Drawing.Point(0, 102);
             this.mum.Name = "mum";
-            this.mum.Size = new System.Drawing.Size(1600, 600);
+            this.mum.Size = new System.Drawing.Size(1700, 820);
             this.mum.TabIndex = 0;
-            // 
-            // allbtn
-            // 
-            this.allbtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.allbtn.FlatAppearance.BorderSize = 0;
-            this.allbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.allbtn.Location = new System.Drawing.Point(324, 32);
-            this.allbtn.Name = "allbtn";
-            this.allbtn.Size = new System.Drawing.Size(107, 37);
-            this.allbtn.TabIndex = 1;
-            this.allbtn.Text = "ALL";
-            this.allbtn.UseVisualStyleBackColor = false;
             // 
             // donebtn
             // 
@@ -65,6 +53,7 @@
             this.donebtn.TabIndex = 2;
             this.donebtn.Text = "Check out";
             this.donebtn.UseVisualStyleBackColor = false;
+            this.donebtn.Click += new System.EventHandler(this.donebtn_Click);
             // 
             // presentbtn
             // 
@@ -77,6 +66,7 @@
             this.presentbtn.TabIndex = 3;
             this.presentbtn.Text = "Current";
             this.presentbtn.UseVisualStyleBackColor = false;
+            this.presentbtn.Click += new System.EventHandler(this.presentbtn_Click);
             // 
             // Addbtn
             // 
@@ -96,11 +86,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(1600, 700);
+            this.ClientSize = new System.Drawing.Size(1600, 868);
             this.Controls.Add(this.Addbtn);
             this.Controls.Add(this.presentbtn);
             this.Controls.Add(this.donebtn);
-            this.Controls.Add(this.allbtn);
             this.Controls.Add(this.mum);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AC_Orders";
@@ -114,7 +103,6 @@
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel mum;
-        private System.Windows.Forms.Button allbtn;
         private System.Windows.Forms.Button donebtn;
         private System.Windows.Forms.Button presentbtn;
         private System.Windows.Forms.Button Addbtn;

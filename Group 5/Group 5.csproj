@@ -192,5 +192,11 @@
   <ItemGroup>
     <None Include="Resources\dropfile.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\div_brown.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Border.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

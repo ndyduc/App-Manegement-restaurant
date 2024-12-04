@@ -11,13 +11,13 @@ using System.Windows.Forms;
 using static Group_5.AC_Menus;
 using Group_5.Model;
 using System.IO;
+using System.Reflection.Emit;
 
 namespace Group_5
 {
     public partial class AC_AddtoBill : Form
     {
-        int id_bill;
-        public AC_AddtoBill(int idfood, int idorder, int id_bill)
+        public AC_AddtoBill(int idfood, AC_Home home)
         {
             InitializeComponent();
 
@@ -43,14 +43,42 @@ namespace Group_5
             txt_description.Text = wy.Description;
             txt_price.Text = "- " + wy.Price + " VND";
 
-            AC_Menus me = new AC_Menus();
+            set_Combo();
+            Console.WriteLine("csdavdavadv" + home.Get_bill());
+            bill_here.SelectedValue = home.Get_bill();
+
+            AC_Menus me = new AC_Menus(home);
             imgfood.SizeMode = PictureBoxSizeMode.Zoom;
             me.LoadImageFromUrl(wy.ImageCover, imgfood); // load anh
 
             this.Controls.Add(addtobillbtn);
-            this.id_bill = id_bill;
 
-            if(id_bill != null) bill_here.SelectedValue = id_bill;
+        }
+
+        private void AC_AddtoBill_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void set_Combo()
+        {
+            bill_here.DataSource = null;
+            using (var context = new DataClasses1DataContext())
+            {
+                try
+                {
+                    DateTime today = DateTime.Today;
+
+                    var orders = context.Orders
+                        .Where(order => order.Status == 0 && order.Time.Date == today)
+                        .Select(order => new { order.ID, order.Name })  // Chọn các cột cần thiết
+                        .ToList();
+
+                    bill_here.DataSource = orders;
+                    bill_here.DisplayMember = "Name"; // Hiển thị tên đơn hàng
+                    bill_here.ValueMember = "ID";    // Giá trị của mỗi mục là ID của đơn hàng
+                }
+                catch (Exception ex) { MessageBox.Show("Error loading data: " + ex.Message); }
+            }
         }
 
         private Menui GetMenuItem(int idfood)
@@ -105,27 +133,22 @@ namespace Group_5
             this.Close();
         }
 
-        private void AC_AddtoBill_Load(object sender, EventArgs e)
+        private void morebtn_Click(object sender, EventArgs e)
         {
-            bill_here.DataSource = null;
-            using (var context = new DataClasses1DataContext())
+            int result;
+            if (int.TryParse(txt_amount.Text, out result))
             {
-                try
-                {
-                    DateTime today = DateTime.Today;
-
-                    var orders = context.Orders
-                        .Where(order => order.Status == 0 && order.Time.Date == today)
-                        .Select(order => new { order.ID, order.Name })  // Chọn các cột cần thiết
-                        .ToList();
-
-                    bill_here.DataSource = orders;
-                    bill_here.DisplayMember = "Name"; // Hiển thị tên đơn hàng
-                    bill_here.ValueMember = "ID";    // Giá trị của mỗi mục là ID của đơn hàng
-                }
-                catch (Exception ex) { MessageBox.Show("Error loading data: " + ex.Message); }
+                txt_amount.Text = (result + 1 ).ToString();
             }
-            if (id_bill != null && id_bill != 0) bill_here.SelectedValue = id_bill;
+        }
+
+        private void lessbtn_Click(object sender, EventArgs e)
+        {
+            int result;
+            if (int.TryParse(txt_amount.Text, out result))
+            {
+                if(result > 1) txt_amount.Text = (result - 1).ToString();
+            }
         }
     }
 

@@ -32,7 +32,7 @@ namespace Group_5
             // Kiểm tra và làm sạch panel trước khi hiển thị form mới
             panel.Controls.Clear();
 
-            menuForm = new AC_Menus();
+            menuForm = new AC_Menus(this);
 
             // Đặt form vào Panel và chỉnh sửa Dock để chiếm toàn bộ Panel
             menuForm.TopLevel = false;
@@ -59,13 +59,11 @@ namespace Group_5
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
-                menuForm = new AC_Menus();
+                menuForm = new AC_Menus(this);
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
 
-            int selectedId = (int)billwhere.SelectedValue; 
-            if(selectedId == null) selectedId =0;
-            menuForm.RefreshMenuItems("Bao", ismanage, selectedId);
+            menuForm.RefreshMenuItems("Bao", ismanage);
         }
 
         private void btn_sides_Click(object sender, EventArgs e)
@@ -73,11 +71,10 @@ namespace Group_5
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
-                menuForm = new AC_Menus();
+                menuForm = new AC_Menus(this);
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            int selectedId = (int)billwhere.SelectedValue;
-            menuForm.RefreshMenuItems("Side", ismanage, selectedId);
+            menuForm.RefreshMenuItems("Side", ismanage);
         }
 
         private void btn_bowls_Click(object sender, EventArgs e)
@@ -85,11 +82,10 @@ namespace Group_5
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
-                menuForm = new AC_Menus();
+                menuForm = new AC_Menus(this);
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            int selectedId = (int)billwhere.SelectedValue;
-            menuForm.RefreshMenuItems("Bowl", ismanage, selectedId);
+            menuForm.RefreshMenuItems("Bowl", ismanage);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -102,11 +98,10 @@ namespace Group_5
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
-                menuForm = new AC_Menus();
+                menuForm = new AC_Menus(this);
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            int selectedId = (int)billwhere.SelectedValue;
-            menuForm.RefreshMenuItems("Dessert", ismanage, selectedId); 
+            menuForm.RefreshMenuItems("Dessert", ismanage); 
         }
 
         private void btn_drinks_Click(object sender, EventArgs e)
@@ -114,12 +109,10 @@ namespace Group_5
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             { 
-                menuForm = new AC_Menus();
+                menuForm = new AC_Menus(this);
                 Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             }
-            int selectedId = (int)billwhere.SelectedValue;
-            if (selectedId == null) selectedId = 0;
-            menuForm.RefreshMenuItems("Drink", ismanage, selectedId);
+            menuForm.RefreshMenuItems("Drink", ismanage);
         }
 
 
@@ -157,12 +150,18 @@ namespace Group_5
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
             {
-                menuForm = new AC_Menus();
-                Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
+                menuForm = new AC_Menus(this);
             }
+            Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             int selectedId = (int)billwhere.SelectedValue;
             if (selectedId == null) selectedId = 0;
-            menuForm.RefreshMenuItems("Bao", ismanage, selectedId);
+            Console.WriteLine("Bill nay" +selectedId);
+            menuForm.RefreshMenuItems("Bao", ismanage);
+        }
+
+        public int Get_bill()
+        {
+            return (int)billwhere.SelectedValue;
         }
 
 
