@@ -82,7 +82,9 @@ namespace Group_5
                 Margin = new Padding(10, 5, 10, 5)
             };
 
-            PictureBox pictureBox = CreatePictureBox(item.ImageCover);  // Hiển thị ảnh từ URL
+            PictureBox pictureBox = CreatePictureBox(item.ImageCover);
+            pictureBox.Tag = item.ImageCover; // Gán đường dẫn ảnh vào Tag
+  // Hiển thị ảnh từ URL
             Label nameLabel = CreateLabel(item.Name, new Point(10, 210));
             Label priceLabel = CreateLabel($"Price: {item.Price}", new Point(10, 230));  // Cập nhật vị trí để không tràn
             Label descriptionLabel = CreateLabel(item.Description, new Point(10, 250));
@@ -172,25 +174,35 @@ namespace Group_5
             return button;
         }
 
-
         private void Edit_Click(object sender, EventArgs e)
         {
             Button editButton = sender as Button;
             Panel menuPanel = editButton?.Parent as Panel;
             if (menuPanel == null) return;
 
-            string name = menuPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Font.Bold)?.Text;
-            string price = menuPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Price:"))?.Text.Replace("Price: ", "");
-            string description = menuPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Description:"))?.Text.Replace("Description: ", "");
+            // Lấy thông tin từ các control
+            string name = menuPanel.Controls.OfType<Label>()
+                             .FirstOrDefault(lbl => lbl.Location == new Point(10, 210))?.Text;
+            string price = menuPanel.Controls.OfType<Label>()
+                              .FirstOrDefault(lbl => lbl.Text.StartsWith("Price:"))?.Text.Replace("Price: ", "");
+            string description = menuPanel.Controls.OfType<Label>()
+                                  .FirstOrDefault(lbl => lbl.Location == new Point(10, 250))?.Text;
+            string kind = menuPanel.Controls.OfType<Label>()
+                              .FirstOrDefault(lbl => lbl.Text.StartsWith("Kind:"))?.Text.Replace("Kind: ", "");
             string imagePath = menuPanel.Controls.OfType<PictureBox>().FirstOrDefault()?.Tag?.ToString();
-            string kind = menuPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Kind:"))?.Text.Replace("Kind: ", "");
 
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(price)) return;
+            // Kiểm tra dữ liệu rỗng
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(price))
+            {
+                MessageBox.Show("Missing required data. Please check the menu item.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            AC_EditFood editForm = new AC_EditFood(name, price, description, imagePath, kind); // Truyền 'kind'
+            // Hiển thị form chỉnh sửa
+            AC_EditFood editForm = new AC_EditFood(name, price, description, imagePath, kind);
             if (editForm.ShowDialog() == DialogResult.OK)
             {
-                LoadMenuItems();
+                LoadMenuItems();  // Tải lại danh sách menu sau khi chỉnh sửa
             }
         }
 

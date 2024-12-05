@@ -109,21 +109,6 @@ namespace Group_5
         }
 
 
-
-        private void PictureBox1_MouseEnter(object sender, EventArgs e)
-        {
-            // Đổi màu viền khi hover vào PictureBox
-            pictureBox1.BackColor = Color.LightGray; // Hoặc đổi sang màu mong muốn
-            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
-        }
-
-        private void PictureBox1_MouseLeave(object sender, EventArgs e)
-        {
-            // Đổi lại màu ban đầu khi chuột rời khỏi PictureBox
-            pictureBox1.BackColor = Color.Transparent; // Hoặc màu ban đầu bạn muốn
-            pictureBox1.BorderStyle = BorderStyle.None;
-        }
-
         // Hàm điều chỉnh độ sáng
         private Image AdjustBrightness(Image image, float brightnessFactor)
         {

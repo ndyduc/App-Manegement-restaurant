@@ -15,30 +15,26 @@ namespace Group_5
 {
     public partial class AC_EditFood : Form
     {
-        private string foodName;
+        private string originalImagePath;
+        private DataClasses1DataContext db = new DataClasses1DataContext();
 
-        public AC_EditFood(string name, string price, string kind, string description, string imagePath)
+        public AC_EditFood(string name, string price, string description, string imagePath, string kind)
         {
             InitializeComponent();
+            originalImagePath = imagePath;
 
-            // Gán giá trị ban đầu vào các control
-            foodName = name; // Lưu tên món cũ để cập nhật
-            textBox1.Text = name;  // Hiển thị tên món ăn
-            textBox2.Text = price;  // Hiển thị giá
-            comboBox1.Text = kind;  // Hiển thị loại món ăn
-            richTextBox1.Text = description;  // Hiển thị mô tả món ăn
+            textBoxName.Text = name;
+            textBoxPrice.Text = price; // Thêm đơn vị VND khi hiển thị
+            richTextBoxDescription.Text = description;
+            comboBoxKind.Text = kind;
 
-            // Kiểm tra nếu có đường dẫn hình ảnh hợp lệ
-            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
-            {
-                pictureBox1.Image = Image.FromFile(imagePath);  // Hiển thị hình ảnh nếu đường dẫn hợp lệ
-                pictureBox1.Tag = imagePath;  // Lưu đường dẫn hình ảnh vào Tag của PictureBox
-            }
-            else
-            {
-                pictureBox1.Image = Properties.Resources.noimg;  // Nếu không có ảnh, hiển thị ảnh mặc định
-                pictureBox1.Tag = null;  // Đặt lại Tag nếu không có hình ảnh
-            }
+            // Cấu hình PictureBox cho Drag & Drop
+            pictureBoxImage.AllowDrop = true;
+            pictureBoxImage.DragEnter += PictureBoxImage_DragEnter;
+            pictureBoxImage.DragLeave += PictureBoxImage_DragLeave;
+            pictureBoxImage.DragDrop += PictureBoxImage_DragDrop;
+
+            LoadImage(imagePath);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -56,9 +52,20 @@ namespace Group_5
 
         }
 
-        private void AC_EditFood_Load(object sender, EventArgs e)
+        private void LoadImage(string imagePath)
         {
-            // Đây là nơi bạn có thể thực hiện các thao tác khi form được tải (nếu cần)
+            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
+            {
+                pictureBoxImage.Image = Image.FromFile(imagePath);
+                pictureBoxImage.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBoxImage.Tag = imagePath;
+            }
+            else
+            {
+                pictureBoxImage.Image = Properties.Resources.dropfile; // Ảnh mặc định
+                pictureBoxImage.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBoxImage.Tag = "default";
+            }
         }
 
 
@@ -74,73 +81,101 @@ namespace Group_5
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string imagePath = openFileDialog.FileName;
-                pictureBox1.Image = Image.FromFile(imagePath);
-                pictureBox1.Tag = imagePath;
+                pictureBoxImage.Image = Image.FromFile(imagePath);
+                pictureBoxImage.Tag = imagePath;
             }
+        }
+
+        private void PictureBoxImage_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (files.Length > 0 && IsImageFile(files[0]))
+                {
+                    e.Effect = DragDropEffects.Copy;
+                }
+                else
+                {
+                    e.Effect = DragDropEffects.None;
+                }
+            }
+        }
+
+        private void PictureBoxImage_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length > 0 && IsImageFile(files[0]))
+            {
+                string filePath = files[0];
+                pictureBoxImage.Image?.Dispose(); // Giải phóng ảnh cũ
+                pictureBoxImage.Image = Image.FromFile(filePath);
+                pictureBoxImage.Tag = filePath;
+            }
+            else
+            {
+                MessageBox.Show("Please drop a valid image file.", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void PictureBoxImage_DragLeave(object sender, EventArgs e)
+        {
+            // Không cần chỉnh sáng tối ở đây trừ khi bạn muốn
+        }
+
+        private bool IsImageFile(string filePath)
+        {
+            string[] validExtensions = { ".jpg", ".jpeg", ".png", ".bmp", ".gif" };
+            string extension = Path.GetExtension(filePath).ToLower();
+            return validExtensions.Contains(extension);
         }
 
         private void EditDone_Click(object sender, EventArgs e)
         {
-            // Lấy thông tin mới từ các control
-            string newName = textBox1.Text;
-            string newPrice = textBox2.Text;
-            string newKind = comboBox1.Text;
-            string newDescription = richTextBox1.Text;
-            string newImagePath = pictureBox1.Tag?.ToString();
+            string newName = textBoxName.Text;
+            string newPrice = textBoxPrice.Text;
+            string newKind = comboBoxKind.Text;
+            string newDescription = richTextBoxDescription.Text;
+            string newImagePath = pictureBoxImage.Tag?.ToString();
 
-            // Kiểm tra dữ liệu
             if (string.IsNullOrEmpty(newName) || string.IsNullOrEmpty(newPrice) ||
-                string.IsNullOrEmpty(newKind) || string.IsNullOrEmpty(newDescription))
+                string.IsNullOrEmpty(newKind) || string.IsNullOrEmpty(newDescription) ||
+                newImagePath == "default")
             {
-                MessageBox.Show("Please fill in all fields.");
+                MessageBox.Show("Please fill in all fields and select a valid image.");
                 return;
             }
 
-            // Kiểm tra và chuyển đổi giá trị Price sang int
-            int parsedPrice;
-            if (!int.TryParse(newPrice, out parsedPrice))
+            string cleanedPrice = newPrice.Replace("VND", "").Trim(); // Loại bỏ đơn vị VND
+            if (!int.TryParse(cleanedPrice.Replace(",", ""), out int parsedPrice))
             {
                 MessageBox.Show("Price must be a valid number.");
                 return;
             }
 
-            // Sử dụng LINQ để cập nhật món ăn
-            using (var context = new DataClasses1DataContext())
+            try
             {
-                // Tìm món ăn trong cơ sở dữ liệu
-                var menuItem = context.Menus.FirstOrDefault(m => m.Name == foodName);
+                var menuItem = db.Menus.FirstOrDefault(m => m.Name == newName);
                 if (menuItem != null)
                 {
-                    // Cập nhật thông tin món ăn
                     menuItem.Name = newName;
                     menuItem.Price = parsedPrice;
                     menuItem.Kind = newKind;
                     menuItem.Description = newDescription;
-                    menuItem.Imagecover = newImagePath ?? ""; // Cập nhật đường dẫn ảnh, nếu có
-
-                    // Lưu thay đổi vào cơ sở dữ liệu
-                    try
-                    {
-                        context.SubmitChanges(); // Lưu thay đổi
-                        MessageBox.Show("Food updated successfully!");
-                        this.DialogResult = DialogResult.OK; // Đóng form với kết quả OK
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error updating food: " + ex.Message);
-                    }
+                    menuItem.Imagecover = newImagePath;
+                    db.SubmitChanges();
+                    MessageBox.Show("Food updated successfully!");
+                    this.DialogResult = DialogResult.OK;
                 }
                 else
                 {
                     MessageBox.Show("Food item not found.");
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating food: " + ex.Message);
+            }
         }
-
-        private void AC_EditFood_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }
