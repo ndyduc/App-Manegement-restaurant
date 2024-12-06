@@ -1,5 +1,6 @@
 ﻿using Group_5.Component;
 using Group_5.Model;
+using Group_5.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -67,7 +68,7 @@ namespace Group_5
 
         }
 
-        private void reload(int status)
+        public void reload(int status)
         {
             using (var context = new DataClasses1DataContext())
             {
@@ -93,9 +94,9 @@ namespace Group_5
                     {
                         var k = orders[i];
 
-                        Ordder item = new Ordder
+                        Order item = new Order
                         {
-                            Id = k.ID,
+                            ID = k.ID,
                             Name = k.Name,
                             Phone = k.Phone,
                             Address = k.Address,
@@ -125,9 +126,10 @@ namespace Group_5
 
         }
 
-        private Panel Create_Item(Ordder order)
+        private Panel Create_Item(Order order)
         {
             Panel me = new Panel();
+            me.BackColor = Color.FromArgb(255, 200, 100); // Màu cam nhạt
             me.Size = new Size(200, 140);
             me.BorderStyle = BorderStyle.FixedSingle;
             me.Margin = new Padding(10, 5, 10, 5);
@@ -140,21 +142,28 @@ namespace Group_5
 
             Label phone = new Label();
             phone.Location = new Point(10, 30);
+            phone.Size = new Size(120, 15);
             phone.Text = "Phone: " + order.Phone;
 
             Label table = new Label();
-            table.Text = order.Talbe;
-            table.Location = new Point(150, 30);
-            table.Size = new Size(40, 10);
+            table.Text = order.Table;
+            table.Location = new Point(130, 35);
+            table.Size = new Size(60, 10);
 
-            Label addr = new Label();
-            table.Text = order.Address;
-            addr.Location = new Point(10, 50);
-            addr.Size = new Size(180, 30);
+            System.Windows.Forms.TextBox addr = new System.Windows.Forms.TextBox();
+            addr.Text = "Address: " + order.Address;
+            addr.Location = new Point(10, 55);
+            addr.Size = new Size(200, 30);  // Đặt chiều rộng và chiều cao hợp lý
+            addr.Multiline = true;  // Cho phép hiển thị nhiều dòng
+            addr.BorderStyle = BorderStyle.None;
+            addr.ReadOnly = true;  // Đặt là chỉ đọc để không cho phép người dùng chỉnh sửa
+            addr.BackColor = Color.FromArgb(255, 200, 100);  // Đặt nền trong suốt
+            addr.ForeColor = Color.Black;
+            addr.TabStop = false;  // Tắt việc nhận focus khi người dùng nhấn Tab
 
             Label time = new Label();
             time.Text = order.Time.ToString();
-            time.Location = new Point(80, 90);
+            time.Location = new Point(70, 90);
             time.Size = new Size(150, 15);
 
             RoundedButton status = new RoundedButton();
@@ -169,9 +178,10 @@ namespace Group_5
             status.Padding = new Padding(10);
 
             Label total = new Label();
-            total.Text = "tinh sau";
-            total.Size = new Size(80,20);
-            total.Location = new Point(110, 110);
+            total.Text = order.Total+"  VND";
+            total.Size = new Size(100,20);
+            total.Location = new Point(100, 110);
+            total.Font = new Font("Serif", 8, FontStyle.Bold);
 
             me.Controls.Add(name);
             me.Controls.Add(phone);
@@ -180,6 +190,11 @@ namespace Group_5
             me.Controls.Add(time);
             me.Controls.Add(status);
             me.Controls.Add(total);
+
+            me.Click += (sender, e) =>
+            {
+                home.show_bill(order);
+            };
 
             return me;
         }

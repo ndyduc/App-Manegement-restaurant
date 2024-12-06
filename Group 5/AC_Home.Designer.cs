@@ -239,9 +239,9 @@ namespace Group_5
             this.Panel_bill.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Panel_bill.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.Panel_bill.Location = new System.Drawing.Point(1412, 0);
+            this.Panel_bill.Location = new System.Drawing.Point(1412, 76);
             this.Panel_bill.Name = "Panel_bill";
-            this.Panel_bill.Size = new System.Drawing.Size(423, 944);
+            this.Panel_bill.Size = new System.Drawing.Size(423, 868);
             this.Panel_bill.TabIndex = 0;
             this.Panel_bill.Visible = false;
             this.Panel_bill.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_bill_Paint);

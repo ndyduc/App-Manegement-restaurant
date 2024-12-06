@@ -30,38 +30,25 @@
         {
             this.components = new System.ComponentModel.Container();
             this.lblBilltitle = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btn_less = new System.Windows.Forms.Button();
-            this.txt_amount = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblPrice = new System.Windows.Forms.Label();
-            this.lblTenmon = new System.Windows.Forms.Label();
-            this.img_bill = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.listbill = new System.Windows.Forms.ComboBox();
             this.orderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nDYDUC_data = new Group_5.NDYDUC_data();
             this.menuBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuTableAdapter = new Group_5.NDYDUC_dataTableAdapters.MenuTableAdapter();
             this.orderTableAdapter = new Group_5.NDYDUC_dataTableAdapters.OrderTableAdapter();
             this.grpDelivery = new System.Windows.Forms.GroupBox();
-            this.lblTo = new System.Windows.Forms.Label();
-            this.lblDis = new System.Windows.Forms.Label();
-            this.lblSub = new System.Windows.Forms.Label();
-            this.lblPhoneCus = new System.Windows.Forms.Label();
-            this.lblAdressCus = new System.Windows.Forms.Label();
-            this.lblNameCus = new System.Windows.Forms.Label();
+            this.txttotal = new System.Windows.Forms.Label();
+            this.btnchange = new System.Windows.Forms.Button();
+            this.txtphone = new System.Windows.Forms.TextBox();
+            this.txtaddr = new System.Windows.Forms.TextBox();
+            this.txtname = new System.Windows.Forms.TextBox();
             this.lblTotal = new System.Windows.Forms.Label();
             this.btnCheckout = new System.Windows.Forms.Button();
-            this.lblDiscount = new System.Windows.Forms.Label();
-            this.lblSubtotal = new System.Windows.Forms.Label();
             this.lblPhone = new System.Windows.Forms.Label();
             this.lblAddress = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.img_bill)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.div_order = new System.Windows.Forms.FlowLayoutPanel();
+            this.exitbtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nDYDUC_data)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuBindingSource)).BeginInit();
@@ -72,116 +59,23 @@
             // 
             this.lblBilltitle.AutoSize = true;
             this.lblBilltitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBilltitle.Location = new System.Drawing.Point(11, 7);
+            this.lblBilltitle.Location = new System.Drawing.Point(12, 9);
             this.lblBilltitle.Name = "lblBilltitle";
-            this.lblBilltitle.Size = new System.Drawing.Size(56, 25);
+            this.lblBilltitle.Size = new System.Drawing.Size(65, 29);
             this.lblBilltitle.TabIndex = 0;
             this.lblBilltitle.Text = "BILL";
             // 
-            // panel1
+            // listbill
             // 
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.btn_less);
-            this.panel1.Controls.Add(this.txt_amount);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.lblPrice);
-            this.panel1.Controls.Add(this.lblTenmon);
-            this.panel1.Controls.Add(this.img_bill);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(11, 56);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(320, 80);
-            this.panel1.TabIndex = 2;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(262, 42);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(44, 26);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "+";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // btn_less
-            // 
-            this.btn_less.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_less.Location = new System.Drawing.Point(214, 42);
-            this.btn_less.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn_less.Name = "btn_less";
-            this.btn_less.Size = new System.Drawing.Size(43, 26);
-            this.btn_less.TabIndex = 6;
-            this.btn_less.Text = "-";
-            this.btn_less.UseVisualStyleBackColor = true;
-            // 
-            // txt_amount
-            // 
-            this.txt_amount.AutoSize = true;
-            this.txt_amount.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_amount.Location = new System.Drawing.Point(115, 41);
-            this.txt_amount.Name = "txt_amount";
-            this.txt_amount.Size = new System.Drawing.Size(25, 25);
-            this.txt_amount.TabIndex = 5;
-            this.txt_amount.Text = "1";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(94, 41);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(24, 25);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "X";
-            // 
-            // lblPrice
-            // 
-            this.lblPrice.AutoSize = true;
-            this.lblPrice.Location = new System.Drawing.Point(228, 10);
-            this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(38, 16);
-            this.lblPrice.TabIndex = 3;
-            this.lblPrice.Text = "Price";
-            // 
-            // lblTenmon
-            // 
-            this.lblTenmon.AutoSize = true;
-            this.lblTenmon.Location = new System.Drawing.Point(94, 10);
-            this.lblTenmon.Name = "lblTenmon";
-            this.lblTenmon.Size = new System.Drawing.Size(44, 16);
-            this.lblTenmon.TabIndex = 2;
-            this.lblTenmon.Text = "Name";
-            // 
-            // img_bill
-            // 
-            this.img_bill.Location = new System.Drawing.Point(0, 0);
-            this.img_bill.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.img_bill.Name = "img_bill";
-            this.img_bill.Size = new System.Drawing.Size(89, 80);
-            this.img_bill.TabIndex = 1;
-            this.img_bill.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(3, 2);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(0, 0);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DataSource = this.orderBindingSource;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(210, 10);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(108, 24);
-            this.comboBox1.TabIndex = 3;
+            this.listbill.DataSource = this.orderBindingSource;
+            this.listbill.FormattingEnabled = true;
+            this.listbill.Location = new System.Drawing.Point(236, 12);
+            this.listbill.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listbill.Name = "listbill";
+            this.listbill.Size = new System.Drawing.Size(121, 28);
+            this.listbill.TabIndex = 3;
+            this.listbill.SelectedIndexChanged += new System.EventHandler(this.listbill_SelectedIndexChanged);
+            this.listbill.SelectedValueChanged += new System.EventHandler(this.listbill_SelectedValueChanged);
             // 
             // orderBindingSource
             // 
@@ -209,146 +103,110 @@
             // grpDelivery
             // 
             this.grpDelivery.CausesValidation = false;
-            this.grpDelivery.Controls.Add(this.lblTo);
-            this.grpDelivery.Controls.Add(this.lblDis);
-            this.grpDelivery.Controls.Add(this.lblSub);
-            this.grpDelivery.Controls.Add(this.lblPhoneCus);
-            this.grpDelivery.Controls.Add(this.lblAdressCus);
-            this.grpDelivery.Controls.Add(this.lblNameCus);
+            this.grpDelivery.Controls.Add(this.txttotal);
+            this.grpDelivery.Controls.Add(this.btnchange);
+            this.grpDelivery.Controls.Add(this.txtphone);
+            this.grpDelivery.Controls.Add(this.txtaddr);
+            this.grpDelivery.Controls.Add(this.txtname);
             this.grpDelivery.Controls.Add(this.lblTotal);
             this.grpDelivery.Controls.Add(this.btnCheckout);
-            this.grpDelivery.Controls.Add(this.lblDiscount);
-            this.grpDelivery.Controls.Add(this.lblSubtotal);
             this.grpDelivery.Controls.Add(this.lblPhone);
             this.grpDelivery.Controls.Add(this.lblAddress);
             this.grpDelivery.Controls.Add(this.lblName);
-            this.grpDelivery.Cursor = System.Windows.Forms.Cursors.No;
+            this.grpDelivery.Cursor = System.Windows.Forms.Cursors.Default;
             this.grpDelivery.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpDelivery.Location = new System.Drawing.Point(11, 284);
+            this.grpDelivery.Location = new System.Drawing.Point(12, 668);
+            this.grpDelivery.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grpDelivery.Name = "grpDelivery";
-            this.grpDelivery.Size = new System.Drawing.Size(320, 282);
+            this.grpDelivery.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grpDelivery.Size = new System.Drawing.Size(453, 273);
             this.grpDelivery.TabIndex = 4;
             this.grpDelivery.TabStop = false;
             this.grpDelivery.Text = "Delivery";
             this.grpDelivery.Enter += new System.EventHandler(this.grpDelivery_Enter);
             // 
-            // lblTo
+            // txttotal
             // 
-            this.lblTo.AutoSize = true;
-            this.lblTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTo.Location = new System.Drawing.Point(259, 188);
-            this.lblTo.Name = "lblTo";
-            this.lblTo.Size = new System.Drawing.Size(44, 16);
-            this.lblTo.TabIndex = 12;
-            this.lblTo.Text = "label7";
-            this.lblTo.Click += new System.EventHandler(this.lblTo_Click);
+            this.txttotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txttotal.AutoSize = true;
+            this.txttotal.Location = new System.Drawing.Point(249, 159);
+            this.txttotal.Name = "txttotal";
+            this.txttotal.Size = new System.Drawing.Size(70, 25);
+            this.txttotal.TabIndex = 22;
+            this.txttotal.Text = "label2";
             // 
-            // lblDis
+            // btnchange
             // 
-            this.lblDis.AutoSize = true;
-            this.lblDis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDis.Location = new System.Drawing.Point(259, 162);
-            this.lblDis.Name = "lblDis";
-            this.lblDis.Size = new System.Drawing.Size(44, 16);
-            this.lblDis.TabIndex = 11;
-            this.lblDis.Text = "label6";
-            this.lblDis.Click += new System.EventHandler(this.lblDis_Click);
+            this.btnchange.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnchange.FlatAppearance.BorderSize = 0;
+            this.btnchange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnchange.Location = new System.Drawing.Point(19, 203);
+            this.btnchange.Name = "btnchange";
+            this.btnchange.Size = new System.Drawing.Size(146, 48);
+            this.btnchange.TabIndex = 17;
+            this.btnchange.Text = "Change";
+            this.btnchange.UseVisualStyleBackColor = false;
+            this.btnchange.Click += new System.EventHandler(this.btnchange_Click);
             // 
-            // lblSub
+            // txtphone
             // 
-            this.lblSub.AutoSize = true;
-            this.lblSub.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSub.Location = new System.Drawing.Point(259, 134);
-            this.lblSub.Name = "lblSub";
-            this.lblSub.Size = new System.Drawing.Size(44, 16);
-            this.lblSub.TabIndex = 10;
-            this.lblSub.Text = "label3";
-            this.lblSub.Click += new System.EventHandler(this.lblSub_Click);
+            this.txtphone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtphone.Location = new System.Drawing.Point(208, 116);
+            this.txtphone.Name = "txtphone";
+            this.txtphone.Size = new System.Drawing.Size(239, 31);
+            this.txtphone.TabIndex = 15;
             // 
-            // lblPhoneCus
+            // txtaddr
             // 
-            this.lblPhoneCus.AutoSize = true;
-            this.lblPhoneCus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPhoneCus.Location = new System.Drawing.Point(259, 88);
-            this.lblPhoneCus.Name = "lblPhoneCus";
-            this.lblPhoneCus.Size = new System.Drawing.Size(44, 16);
-            this.lblPhoneCus.TabIndex = 9;
-            this.lblPhoneCus.Text = "label2";
-            this.lblPhoneCus.Click += new System.EventHandler(this.label2_Click);
+            this.txtaddr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtaddr.Location = new System.Drawing.Point(164, 79);
+            this.txtaddr.Name = "txtaddr";
+            this.txtaddr.Size = new System.Drawing.Size(283, 31);
+            this.txtaddr.TabIndex = 14;
             // 
-            // lblAdressCus
+            // txtname
             // 
-            this.lblAdressCus.AutoSize = true;
-            this.lblAdressCus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAdressCus.Location = new System.Drawing.Point(259, 61);
-            this.lblAdressCus.Name = "lblAdressCus";
-            this.lblAdressCus.Size = new System.Drawing.Size(44, 16);
-            this.lblAdressCus.TabIndex = 8;
-            this.lblAdressCus.Text = "label1";
-            this.lblAdressCus.Click += new System.EventHandler(this.lblAdress_Click);
-            // 
-            // lblNameCus
-            // 
-            this.lblNameCus.AutoSize = true;
-            this.lblNameCus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNameCus.Location = new System.Drawing.Point(259, 34);
-            this.lblNameCus.Name = "lblNameCus";
-            this.lblNameCus.Size = new System.Drawing.Size(44, 16);
-            this.lblNameCus.TabIndex = 7;
-            this.lblNameCus.Text = "label5";
-            this.lblNameCus.Click += new System.EventHandler(this.label5_Click);
+            this.txtname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtname.Location = new System.Drawing.Point(208, 42);
+            this.txtname.Name = "txtname";
+            this.txtname.Size = new System.Drawing.Size(239, 31);
+            this.txtname.TabIndex = 13;
             // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(16, 188);
+            this.lblTotal.Location = new System.Drawing.Point(18, 159);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(38, 16);
+            this.lblTotal.Size = new System.Drawing.Size(44, 20);
             this.lblTotal.TabIndex = 6;
             this.lblTotal.Text = "Total";
             // 
             // btnCheckout
             // 
+            this.btnCheckout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCheckout.AutoSize = true;
             this.btnCheckout.BackColor = System.Drawing.Color.Maroon;
+            this.btnCheckout.FlatAppearance.BorderSize = 0;
+            this.btnCheckout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCheckout.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCheckout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnCheckout.Location = new System.Drawing.Point(85, 228);
+            this.btnCheckout.Location = new System.Drawing.Point(254, 203);
+            this.btnCheckout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCheckout.Name = "btnCheckout";
-            this.btnCheckout.Size = new System.Drawing.Size(149, 35);
+            this.btnCheckout.Size = new System.Drawing.Size(168, 52);
             this.btnCheckout.TabIndex = 5;
             this.btnCheckout.Text = "Check out";
             this.btnCheckout.UseVisualStyleBackColor = false;
-            // 
-            // lblDiscount
-            // 
-            this.lblDiscount.AutoSize = true;
-            this.lblDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDiscount.Location = new System.Drawing.Point(16, 162);
-            this.lblDiscount.Name = "lblDiscount";
-            this.lblDiscount.Size = new System.Drawing.Size(59, 16);
-            this.lblDiscount.TabIndex = 4;
-            this.lblDiscount.Text = "Discount";
-            // 
-            // lblSubtotal
-            // 
-            this.lblSubtotal.AutoSize = true;
-            this.lblSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubtotal.Location = new System.Drawing.Point(16, 134);
-            this.lblSubtotal.Name = "lblSubtotal";
-            this.lblSubtotal.Size = new System.Drawing.Size(56, 16);
-            this.lblSubtotal.TabIndex = 3;
-            this.lblSubtotal.Text = "Subtotal";
-            this.lblSubtotal.Click += new System.EventHandler(this.lblSubtotal_Click);
+            this.btnCheckout.Click += new System.EventHandler(this.btnCheckout_Click);
             // 
             // lblPhone
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPhone.Location = new System.Drawing.Point(14, 88);
+            this.lblPhone.Location = new System.Drawing.Point(16, 116);
             this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(94, 16);
+            this.lblPhone.Size = new System.Drawing.Size(113, 20);
             this.lblPhone.TabIndex = 2;
             this.lblPhone.Text = "Phone number";
             // 
@@ -356,9 +214,9 @@
             // 
             this.lblAddress.AutoSize = true;
             this.lblAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddress.Location = new System.Drawing.Point(14, 61);
+            this.lblAddress.Location = new System.Drawing.Point(16, 79);
             this.lblAddress.Name = "lblAddress";
-            this.lblAddress.Size = new System.Drawing.Size(58, 16);
+            this.lblAddress.Size = new System.Drawing.Size(68, 20);
             this.lblAddress.TabIndex = 1;
             this.lblAddress.Text = "Address";
             // 
@@ -366,29 +224,53 @@
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(16, 34);
+            this.lblName.Location = new System.Drawing.Point(18, 42);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(44, 16);
+            this.lblName.Size = new System.Drawing.Size(51, 20);
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Name";
             // 
+            // div_order
+            // 
+            this.div_order.AutoScroll = true;
+            this.div_order.Location = new System.Drawing.Point(0, 63);
+            this.div_order.Name = "div_order";
+            this.div_order.Size = new System.Drawing.Size(465, 598);
+            this.div_order.TabIndex = 5;
+            // 
+            // exitbtn
+            // 
+            this.exitbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.exitbtn.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.exitbtn.FlatAppearance.BorderSize = 0;
+            this.exitbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitbtn.Font = new System.Drawing.Font("Calibri Light", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitbtn.Location = new System.Drawing.Point(416, -3);
+            this.exitbtn.Margin = new System.Windows.Forms.Padding(0);
+            this.exitbtn.Name = "exitbtn";
+            this.exitbtn.Size = new System.Drawing.Size(63, 66);
+            this.exitbtn.TabIndex = 6;
+            this.exitbtn.Text = "X";
+            this.exitbtn.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.exitbtn.UseVisualStyleBackColor = false;
+            this.exitbtn.Click += new System.EventHandler(this.exitbtn_Click);
+            // 
             // AC_Bill
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(341, 574);
+            this.ClientSize = new System.Drawing.Size(472, 944);
+            this.Controls.Add(this.exitbtn);
+            this.Controls.Add(this.div_order);
             this.Controls.Add(this.grpDelivery);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.listbill);
             this.Controls.Add(this.lblBilltitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AC_Bill";
             this.Text = "bill";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.AC_Bill_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.img_bill)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nDYDUC_data)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuBindingSource)).EndInit();
@@ -402,16 +284,7 @@
         #endregion
 
         private System.Windows.Forms.Label lblBilltitle;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label lblTenmon;
-        private System.Windows.Forms.PictureBox img_bill;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btn_less;
-        private System.Windows.Forms.Label txt_amount;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblPrice;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox listbill;
         private NDYDUC_data nDYDUC_data;
         private System.Windows.Forms.BindingSource menuBindingSource;
         private NDYDUC_dataTableAdapters.MenuTableAdapter menuTableAdapter;
@@ -420,16 +293,15 @@
         private System.Windows.Forms.GroupBox grpDelivery;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnCheckout;
-        private System.Windows.Forms.Label lblDiscount;
-        private System.Windows.Forms.Label lblSubtotal;
         private System.Windows.Forms.Label lblPhone;
         private System.Windows.Forms.Label lblAddress;
         private System.Windows.Forms.Label lblTotal;
-        private System.Windows.Forms.Label lblNameCus;
-        private System.Windows.Forms.Label lblTo;
-        private System.Windows.Forms.Label lblDis;
-        private System.Windows.Forms.Label lblSub;
-        private System.Windows.Forms.Label lblPhoneCus;
-        private System.Windows.Forms.Label lblAdressCus;
+        private System.Windows.Forms.FlowLayoutPanel div_order;
+        private System.Windows.Forms.Button exitbtn;
+        private System.Windows.Forms.Button btnchange;
+        private System.Windows.Forms.TextBox txtphone;
+        private System.Windows.Forms.TextBox txtaddr;
+        private System.Windows.Forms.TextBox txtname;
+        private System.Windows.Forms.Label txttotal;
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Group_5.Model
 {
-    class Order_item
+    class Item_Order
     {
         public int id { get; set; }
         public int id_order { get; set; }

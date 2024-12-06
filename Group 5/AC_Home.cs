@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Group_5.Model;
+using Group_5.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,7 @@ namespace Group_5
     public partial class AC_Home : Form
     {
         private AC_Menus menuForm;
+        AC_Orders orr;
         private Boolean ismanage;
 
         public AC_Home()
@@ -142,10 +145,9 @@ namespace Group_5
         }
 
         public void Set_bill(int where)
-        { 
-            billwhere.DataSource = null; // Hoặc billwhere.Items.Clear(); nếu bạn không muốn set lại DataSource.
-            LoadOrdersIntoComboBox();
-            billwhere.SelectedValue = where;
+        {
+            billwhere.DataSource = null;
+            reloadbill(billwhere);
 
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
@@ -153,15 +155,39 @@ namespace Group_5
                 menuForm = new AC_Menus(this);
             }
             Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
-            int selectedId = (int)billwhere.SelectedValue;
-            if (selectedId == null) selectedId = 0;
-            Console.WriteLine("Bill nay" +selectedId);
             menuForm.RefreshMenuItems("Bao", ismanage);
+
+            billwhere.SelectedValue = where;
         }
 
-        public int Get_bill()
+        public void reloadbill(System.Windows.Forms.ComboBox billwhere)
         {
-            return (int)billwhere.SelectedValue;
+            using (var context = new DataClasses1DataContext())
+            {
+                // Lấy ngày hiện tại (không có giờ phút giây)
+                DateTime today = DateTime.Today;
+
+                // Lấy thời gian bắt đầu và kết thúc trong ngày hiện tại
+                DateTime startOfDay = today; // 00:00:00
+                DateTime endOfDay = today.AddDays(1).AddMilliseconds(-1); // 23:59:59.999
+
+                // Lọc đơn hàng có thời gian trong ngày hiện tại và có status = 0
+                var orders = context.Orders
+                                    .Where(o => o.Time >= startOfDay && o.Time <= endOfDay && o.Status == 0) // Lọc theo thời gian và status
+                                    .OrderByDescending(o => o.Time) // Sắp xếp theo thời gian giảm dần
+                                    .ToList();
+
+                // Cập nhật DataSource của ComboBox
+                billwhere.DataSource = orders;
+                billwhere.DisplayMember = "Name"; // Hiển thị tên đơn hàng trong ComboBox
+                billwhere.ValueMember = "ID"; // Gán ID của đơn hàng là giá trị của các mục trong ComboBox
+            }
+        }
+
+
+        public int? Get_bill()
+        {
+            return billwhere.SelectedValue as int?;
         }
 
 
@@ -182,8 +208,26 @@ namespace Group_5
 
         private void btn_Order_Click(object sender, EventArgs e)
         {
-            AC_Orders orr = new AC_Orders(this);
+            orr = new AC_Orders(this);
             Shareds.GeneralFunct.ShowFormInPanel(orr, panel);
+        }
+
+        public void show_bill(Order or)
+        {
+            AC_Bill bill = new AC_Bill(or, this);
+            Shareds.GeneralFunct.ShowFormInPanel(bill, Panel_bill);
+            Panel_bill.Visible = true;
+            Panel_bill.BringToFront();
+        }
+
+        public void close_bill()
+        {
+            Panel_bill.Visible = false;
+        }
+
+        public void reload_orders()
+        {
+            orr.reload(0);
         }
     }
 }

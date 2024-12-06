@@ -17,10 +17,11 @@ namespace Group_5
 {
     public partial class AC_AddtoBill : Form
     {
+        int id_food;
         public AC_AddtoBill(int idfood, AC_Home home)
         {
             InitializeComponent();
-
+            this.id_food = idfood;
 
             RoundedButton addtobillbtn = new RoundedButton();
             addtobillbtn.Size = new Size(150, 30); // Kích thước của nút
@@ -44,12 +45,23 @@ namespace Group_5
             txt_price.Text = "- " + wy.Price + " VND";
 
             set_Combo();
-            Console.WriteLine("csdavdavadv" + home.Get_bill());
-            bill_here.SelectedValue = home.Get_bill();
+            int? selectedBill = home.Get_bill();
+
+            // Kiểm tra nếu selectedBill không phải là null, thì gán giá trị cho SelectedValue
+            if (selectedBill.HasValue)
+            {
+                bill_here.SelectedValue = selectedBill.Value;
+            }
+            else
+            {
+                // Nếu selectedBill là null, không chọn gì trong ComboBox
+                bill_here.SelectedIndex = -1;
+            }
+
 
             AC_Menus me = new AC_Menus(home);
             imgfood.SizeMode = PictureBoxSizeMode.Zoom;
-            me.LoadImageFromUrl(wy.ImageCover, imgfood); // load anh
+            me.LoadImageFromUrl(wy.ImageCover,imgfood); // load anh
 
             this.Controls.Add(addtobillbtn);
 
@@ -122,9 +134,47 @@ namespace Group_5
 
         private void addtobillbtn_Click(object sender, EventArgs e)
         {
-            // Thực hiện hành động khi nút "Add to Bill" được click
-            MessageBox.Show("Item added to bill!");  // Ví dụ hiển thị thông báo
+            using (var context = new DataClasses1DataContext())
+            {
+                try
+                {
+                    var menuItem = context.Menus.FirstOrDefault(m => m.ID == id_food);
+                    if (menuItem == null)
+                    {
+                        MessageBox.Show("Món ăn không tồn tại!");
+                        return;
+                    }
+                    decimal price = menuItem.Price;
+                    decimal itemTotal = int.Parse(txt_amount.Text) * price;
+
+                    var newOrderItem = new Item_Order
+                    {
+                        Amount = int.Parse(txt_amount.Text),
+                        ID_Order = (int)bill_here.SelectedValue,
+                        Note = string.IsNullOrEmpty(txt_note.Text) ? null : txt_note.Text,
+                        ID_Menu = id_food
+                    };
+
+                    context.Item_Orders.InsertOnSubmit(newOrderItem);
+
+                    var order = context.Orders.FirstOrDefault(o => o.ID == (int)bill_here.SelectedValue);
+                    if (order != null)
+                    {
+                        order.Total = (order.Total ?? 0) + (int)itemTotal; 
+                    }
+
+                    context.SubmitChanges();
+
+                    this.Hide();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message);
+                }
+            }
         }
+
+
 
 
         // Sự kiện click nút Exit
