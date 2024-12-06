@@ -114,6 +114,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shareds\GeneralFunct.cs" />
+    <Compile Include="TableReservationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <EmbeddedResource Include="AC_Addfood.resx">
       <DependentUpon>AC_Addfood.cs</DependentUpon>
     </EmbeddedResource>
