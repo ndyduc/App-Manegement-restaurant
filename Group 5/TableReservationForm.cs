@@ -136,70 +136,75 @@ namespace Group_5
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
+{
+    // Chỉ validate khi text của button là "Xác nhận đặt bàn"
+    if (btnConfirm.Text == "Xác nhận đặt bàn")
+    {
+        // Kiểm tra các trường dữ liệu có hợp lệ không
+        if (string.IsNullOrWhiteSpace(txtName.Text) || txtName.Text == placeholderName)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text) || txtName.Text == placeholderName)
-            {
-                MessageBox.Show("Tên không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtPhone.Text) || txtPhone.Text == placeholderPhone)
-            {
-                MessageBox.Show("Số điện thoại không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (!txtPhone.Text.All(char.IsDigit))
-            {
-                MessageBox.Show("Số điện thoại chỉ được chứa các chữ số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (txtPhone.Text.Length > 10)
-            {
-                MessageBox.Show("Số điện thoại không được vượt quá 10 ký tự!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtEmail.Text) || txtEmail.Text == placeholderEmail)
-            {
-                MessageBox.Show("Email không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (!txtEmail.Text.EndsWith("@gmail.com"))
-            {
-                MessageBox.Show("Email phải có đuôi @gmail.com!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            TimeSpan leaveTime = dateTimePicker2.Value.TimeOfDay;
-
-            if (table.Status == 0)
-            {
-                Customer newCustomer = new Customer
-                {
-                    Name = txtName.Text,
-                    Phone = txtPhone.Text,
-                    Email = txtEmail.Text,
-                    Arrived = dateTimePicker1.Value,
-                    Leave = leaveTime,
-                    TableId = table.Id
-                };
-                db.Customers.InsertOnSubmit(newCustomer);
-                table.Status = 1;
-            }
-            else
-            {
-                Customer existingCustomer = db.Customers.FirstOrDefault(c => c.TableId == table.Id);
-                if (existingCustomer != null)
-                {
-                    db.Customers.DeleteOnSubmit(existingCustomer);
-                }
-                table.Status = 0;
-            }
-
-            db.SubmitChanges();
-            parentForm.LoadTables();
-            this.Close();
+            MessageBox.Show("Tên không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
         }
+
+        // Kiểm tra Số điện thoại (chỉ có số và không quá 10 ký tự)
+        if (string.IsNullOrWhiteSpace(txtPhone.Text) || txtPhone.Text == placeholderPhone)
+        {
+            MessageBox.Show("Số điện thoại không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+        if (!txtPhone.Text.All(char.IsDigit))
+        {
+            MessageBox.Show("Số điện thoại chỉ được chứa các chữ số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+        if (txtPhone.Text.Length > 10)
+        {
+            MessageBox.Show("Số điện thoại không được vượt quá 10 ký tự!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
+        // Kiểm tra Email
+        if (string.IsNullOrWhiteSpace(txtEmail.Text) || txtEmail.Text == placeholderEmail)
+        {
+            MessageBox.Show("Email không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+        if (!txtEmail.Text.EndsWith("@gmail.com"))
+        {
+            MessageBox.Show("Email phải có đuôi @gmail.com!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+    }
+
+    if (table.Status == 0)
+    {
+        Customer newCustomer = new Customer
+        {
+            Name = txtName.Text,
+            Phone = txtPhone.Text,
+            Email = txtEmail.Text,
+            Arrived = dateTimePicker1.Value,
+            Leave = dateTimePicker2.Value.TimeOfDay,
+            TableId = table.Id
+        };
+        db.Customers.InsertOnSubmit(newCustomer);
+        table.Status = 1;
+    }
+    else
+    {
+        Customer existingCustomer = db.Customers.FirstOrDefault(c => c.TableId == table.Id);
+        if (existingCustomer != null)
+        {
+            db.Customers.DeleteOnSubmit(existingCustomer);
+        }
+        table.Status = 0;
+    }
+
+    db.SubmitChanges();
+    parentForm.LoadTables();
+    this.Close();
+}
 
         private void btnAddOrder_Click(object sender, EventArgs e)
         {
