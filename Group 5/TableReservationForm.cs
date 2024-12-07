@@ -232,99 +232,110 @@ namespace Group_5
             // lblTableName
             // 
             this.lblTableName.AutoSize = true;
+            this.lblTableName.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.lblTableName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTableName.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
+            this.lblTableName.Font = new System.Drawing.Font("Segoe UI", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTableName.Location = new System.Drawing.Point(12, 9);
             this.lblTableName.Name = "lblTableName";
-            this.lblTableName.Size = new System.Drawing.Size(178, 48);
+            this.lblTableName.Size = new System.Drawing.Size(229, 69);
             this.lblTableName.TabIndex = 0;
             this.lblTableName.Text = "Tên bàn ";
             this.lblTableName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAddOrder
             // 
+            this.btnAddOrder.BackColor = System.Drawing.Color.GreenYellow;
             this.btnAddOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
+            this.btnAddOrder.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnAddOrder.Location = new System.Drawing.Point(363, 9);
             this.btnAddOrder.Margin = new System.Windows.Forms.Padding(0);
             this.btnAddOrder.Name = "btnAddOrder";
             this.btnAddOrder.Size = new System.Drawing.Size(212, 48);
             this.btnAddOrder.TabIndex = 1;
             this.btnAddOrder.Text = "Add Order";
-            this.btnAddOrder.UseVisualStyleBackColor = true;
+            this.btnAddOrder.UseVisualStyleBackColor = false;
             // 
             // txtName
             // 
+            this.txtName.BackColor = System.Drawing.SystemColors.Window;
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
             this.txtName.Location = new System.Drawing.Point(12, 101);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(563, 53);
+            this.txtName.Size = new System.Drawing.Size(563, 64);
             this.txtName.TabIndex = 2;
             // 
             // txtPhone
             // 
+            this.txtPhone.BackColor = System.Drawing.SystemColors.Window;
             this.txtPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
             this.txtPhone.Location = new System.Drawing.Point(12, 202);
             this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(563, 53);
+            this.txtPhone.Size = new System.Drawing.Size(563, 64);
             this.txtPhone.TabIndex = 3;
             // 
             // txtEmail
             // 
+            this.txtEmail.BackColor = System.Drawing.SystemColors.Window;
             this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
             this.txtEmail.Location = new System.Drawing.Point(12, 310);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(560, 53);
+            this.txtEmail.Size = new System.Drawing.Size(560, 64);
             this.txtEmail.TabIndex = 4;
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.dateTimePicker1.Location = new System.Drawing.Point(23, 438);
+            this.dateTimePicker1.Location = new System.Drawing.Point(36, 450);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(256, 30);
+            this.dateTimePicker1.Size = new System.Drawing.Size(269, 36);
             this.dateTimePicker1.TabIndex = 5;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // dateTimePicker2
             // 
             this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.dateTimePicker2.Location = new System.Drawing.Point(319, 438);
+            this.dateTimePicker2.Location = new System.Drawing.Point(363, 450);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(256, 30);
+            this.dateTimePicker2.Size = new System.Drawing.Size(212, 36);
             this.dateTimePicker2.TabIndex = 6;
+            this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
             // lblDateTime1
             // 
             this.lblDateTime1.AutoSize = true;
-            this.lblDateTime1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
-            this.lblDateTime1.Location = new System.Drawing.Point(56, 396);
+            this.lblDateTime1.Font = new System.Drawing.Font("Segoe UI", 25.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDateTime1.Location = new System.Drawing.Point(69, 390);
             this.lblDateTime1.Name = "lblDateTime1";
-            this.lblDateTime1.Size = new System.Drawing.Size(189, 39);
+            this.lblDateTime1.Size = new System.Drawing.Size(250, 57);
             this.lblDateTime1.TabIndex = 7;
             this.lblDateTime1.Text = "Đặt bàn lúc";
             // 
             // lblDateTime2
             // 
             this.lblDateTime2.AutoSize = true;
-            this.lblDateTime2.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
-            this.lblDateTime2.Location = new System.Drawing.Point(368, 396);
+            this.lblDateTime2.Font = new System.Drawing.Font("Segoe UI", 25.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDateTime2.Location = new System.Drawing.Point(377, 390);
             this.lblDateTime2.Name = "lblDateTime2";
-            this.lblDateTime2.Size = new System.Drawing.Size(158, 39);
+            this.lblDateTime2.Size = new System.Drawing.Size(211, 57);
             this.lblDateTime2.TabIndex = 8;
             this.lblDateTime2.Text = "Thời gian";
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
-            this.btnConfirm.Location = new System.Drawing.Point(113, 492);
+            this.btnConfirm.BackColor = System.Drawing.Color.Brown;
+            this.btnConfirm.Font = new System.Drawing.Font("Segoe UI", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnConfirm.Location = new System.Drawing.Point(129, 510);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(350, 57);
             this.btnConfirm.TabIndex = 9;
             this.btnConfirm.Text = "Xác nhận đặt bàn";
-            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.UseVisualStyleBackColor = false;
             // 
             // TableReservationForm
             // 
-            this.ClientSize = new System.Drawing.Size(584, 561);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(255)))));
+            this.ClientSize = new System.Drawing.Size(600, 603);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.lblDateTime2);
             this.Controls.Add(this.lblDateTime1);
@@ -352,5 +363,15 @@ namespace Group_5
         private System.Windows.Forms.Label lblDateTime1;
         private System.Windows.Forms.Label lblDateTime2;
         private System.Windows.Forms.Button btnConfirm;
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
