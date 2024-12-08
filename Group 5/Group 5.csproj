@@ -113,6 +113,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\RoundedButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Shareds\GeneralFunct.cs" />
     <Compile Include="TableReservationForm.cs">
       <SubType>Form</SubType>

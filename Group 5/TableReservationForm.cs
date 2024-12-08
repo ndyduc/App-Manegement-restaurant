@@ -294,7 +294,6 @@ namespace Group_5
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(269, 36);
             this.dateTimePicker1.TabIndex = 5;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // dateTimePicker2
             // 
@@ -303,7 +302,6 @@ namespace Group_5
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(212, 36);
             this.dateTimePicker2.TabIndex = 6;
-            this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
             // lblDateTime1
             // 
@@ -368,15 +366,5 @@ namespace Group_5
         private System.Windows.Forms.Label lblDateTime1;
         private System.Windows.Forms.Label lblDateTime2;
         private System.Windows.Forms.Button btnConfirm;
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
