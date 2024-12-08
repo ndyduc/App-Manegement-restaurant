@@ -208,5 +208,10 @@ namespace Group_5
         {
             reload(1);
         }
+
+        private void mum_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

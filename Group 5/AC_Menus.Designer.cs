@@ -32,21 +32,22 @@ namespace Group_5
             // panel1
             // 
             this.panel1.Controls.Add(this.addbtn);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel1.Location = new System.Drawing.Point(3, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1598, 55);
+            this.panel1.Size = new System.Drawing.Size(1420, 62);
             this.panel1.TabIndex = 2;
             // 
             // addbtn
             // 
             this.addbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.addbtn.BackColor = System.Drawing.Color.IndianRed;
-            this.addbtn.Font = new System.Drawing.Font("Malgun Gothic Semilight", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addbtn.Font = new System.Drawing.Font("Microsoft PhagsPa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addbtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.addbtn.Location = new System.Drawing.Point(1260, 3);
+            this.addbtn.Location = new System.Drawing.Point(1213, 9);
+            this.addbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addbtn.Name = "addbtn";
-            this.addbtn.Size = new System.Drawing.Size(168, 48);
+            this.addbtn.Size = new System.Drawing.Size(149, 38);
             this.addbtn.TabIndex = 2;
             this.addbtn.Text = "Add new Food";
             this.addbtn.UseVisualStyleBackColor = false;
@@ -59,22 +60,23 @@ namespace Group_5
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 68);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 67);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1600, 797);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1422, 625);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // AC_Menus
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(1600, 868);
+            this.ClientSize = new System.Drawing.Size(1422, 694);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AC_Menus";
             this.Text = "Form2";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

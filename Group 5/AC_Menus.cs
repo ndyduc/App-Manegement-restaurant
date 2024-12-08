@@ -149,25 +149,34 @@ namespace Group_5
             {
                 try
                 {
-                    using (var httpClient = new System.Net.Http.HttpClient())
+                    if (File.Exists(imageUrl)) // Kiểm tra nếu là đường dẫn cục bộ
                     {
-                        var imageData = await httpClient.GetByteArrayAsync(imageUrl); // Tải dữ liệu ảnh bất đồng bộ
-                        using (var stream = new System.IO.MemoryStream(imageData))
+                        using (var stream = new FileStream(imageUrl, FileMode.Open, FileAccess.Read))
                         {
-                            Image originalImage = Image.FromStream(stream); // Tạo ảnh từ dữ liệu
-                            Image croppedImage = CropImageToSquare(originalImage); // Cắt ảnh thành hình vuông
-                            pictureBox.Image = croppedImage; // Gán ảnh đã cắt vào PictureBox
+                            pictureBox.Image = Image.FromStream(stream); // Hiển thị ảnh nguyên bản
+                        }
+                    }
+                    else
+                    {
+                        using (var httpClient = new System.Net.Http.HttpClient())
+                        {
+                            var imageData = await httpClient.GetByteArrayAsync(imageUrl); // Tải dữ liệu ảnh bất đồng bộ
+                            using (var stream = new MemoryStream(imageData))
+                            {
+                                pictureBox.Image = Image.FromStream(stream); // Hiển thị ảnh nguyên bản
+                            }
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    pictureBox.Image = Properties.Resources.noimg; // Nếu tải ảnh lỗi, hiển thị ảnh mặc định
+                    MessageBox.Show($"Error loading image: {ex.Message}", "Image Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    pictureBox.Image = Properties.Resources.noimg; // Hiển thị ảnh mặc định khi lỗi
                 }
             }
             else
             {
-                pictureBox.Image = Properties.Resources.noimg; // Nếu không có URL, hiển thị ảnh mặc định
+                pictureBox.Image = Properties.Resources.noimg; // Hiển thị ảnh mặc định khi không có URL
             }
         }
 
