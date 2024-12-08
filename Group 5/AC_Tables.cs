@@ -9,6 +9,7 @@ namespace Group_5
     {
         DataClasses1DataContext db = new DataClasses1DataContext();
 
+
         public AC_Tables()
         {
             InitializeComponent();
@@ -37,28 +38,69 @@ namespace Group_5
             {
                 tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / tableLayoutPanel1.RowCount));
             }
-
             foreach (var table in tables)
             {
                 Button btn = new Button();
                 btn.Name = "btn" + table.Name;
-                btn.Text = table.Name;
                 btn.Dock = DockStyle.Fill;
-                btn.Margin = new Padding(5);
-                btn.Click += TableButtonClick;
-                UpdateTableButtonColor(btn, table.Status);
+                btn.Margin = new Padding(10);
+                btn.Font = new Font("Arial", 18, FontStyle.Bold);  // Tăng kích thước font
+                btn.FlatStyle = FlatStyle.Flat;
+                btn.FlatAppearance.BorderSize = 1;
+                btn.FlatAppearance.BorderColor = Color.Gray;
+                btn.BackColor = Color.White;  // Màu nền mặc định
 
+                // Thêm hình ảnh
+                Image originalImage = Image.FromFile("C:\\Users\\admin\\OneDrive\\Hình ảnh\\anhban.png"); // Đường dẫn đến hình ảnh
+
+                // Tính toán kích thước mới cho hình ảnh 
+                int newWidth = (int)(btn.Width * 4);
+                int newHeight = (int)(btn.Height * 10);
+                btn.Image = new Bitmap(originalImage, new Size(newWidth, newHeight));
+
+                // Căn chỉnh hình ảnh và văn bản
+                btn.ImageAlign = ContentAlignment.MiddleCenter; // Căn giữa hình ảnh
+                btn.TextAlign = ContentAlignment.MiddleCenter; // Căn giữa văn bản
+                btn.Padding = new Padding(0); // Không cần khoảng cách
+
+                btn.Text = table.Name; // Đặt văn bản cho nút
+
+                btn.Click += TableButtonClick;
+
+                // Thêm hiệu ứng hover với chuyển tiếp mượt mà
+                btn.MouseEnter += (sender, e) =>
+                {
+                    btn.BackColor = Color.LightBlue;
+                    btn.FlatAppearance.BorderColor = Color.Blue; // Thay đổi màu viền khi hover
+                };
+                btn.MouseLeave += (sender, e) =>
+                {
+                    UpdateTableButtonColor(btn, table.Status);
+                    btn.FlatAppearance.BorderColor = Color.Gray; // Khôi phục màu viền
+                };
+
+                UpdateTableButtonColor(btn, table.Status);
                 tableLayoutPanel1.Controls.Add(btn);
             }
+
         }
 
         private void UpdateTableButtonColor(Button btn, int status)
         {
             switch (status)
             {
-                case 0: btn.BackColor = Color.White; break;
-                case 1: btn.BackColor = Color.Red; break;
-                case 2: btn.BackColor = Color.LightGreen; break;
+                case 0:
+                    btn.BackColor = Color.White;
+                    btn.ForeColor = Color.Black;
+                    break;
+                case 1:
+                    btn.BackColor = Color.Red;
+                    btn.ForeColor = Color.White;
+                    break;
+                case 2:
+                    btn.BackColor = Color.LightGreen;
+                    btn.ForeColor = Color.DarkGreen;
+                    break;
             }
         }
 
@@ -76,6 +118,11 @@ namespace Group_5
                 db.SubmitChanges();
                 LoadTables();
             }
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+            // Optionally, you can draw additional custom graphics here
         }
     }
 }
