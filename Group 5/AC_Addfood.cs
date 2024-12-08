@@ -216,5 +216,10 @@ namespace Group_5
                 }
             }
         }
+
+        private void AddName_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

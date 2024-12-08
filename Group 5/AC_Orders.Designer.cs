@@ -37,19 +37,23 @@
             // mum
             // 
             this.mum.AutoScroll = true;
-            this.mum.Location = new System.Drawing.Point(0, 102);
+            this.mum.Location = new System.Drawing.Point(0, 82);
+            this.mum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mum.Name = "mum";
-            this.mum.Size = new System.Drawing.Size(1700, 820);
+            this.mum.Size = new System.Drawing.Size(1511, 660);
             this.mum.TabIndex = 0;
+            this.mum.Paint += new System.Windows.Forms.PaintEventHandler(this.mum_Paint);
             // 
             // donebtn
             // 
             this.donebtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.donebtn.FlatAppearance.BorderSize = 0;
             this.donebtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.donebtn.Location = new System.Drawing.Point(180, 32);
+            this.donebtn.Font = new System.Drawing.Font("Microsoft PhagsPa", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.donebtn.Location = new System.Drawing.Point(157, 29);
+            this.donebtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.donebtn.Name = "donebtn";
-            this.donebtn.Size = new System.Drawing.Size(109, 37);
+            this.donebtn.Size = new System.Drawing.Size(114, 30);
             this.donebtn.TabIndex = 2;
             this.donebtn.Text = "Check out";
             this.donebtn.UseVisualStyleBackColor = false;
@@ -60,9 +64,11 @@
             this.presentbtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.presentbtn.FlatAppearance.BorderSize = 0;
             this.presentbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.presentbtn.Location = new System.Drawing.Point(40, 32);
+            this.presentbtn.Font = new System.Drawing.Font("Microsoft PhagsPa", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.presentbtn.Location = new System.Drawing.Point(33, 29);
+            this.presentbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.presentbtn.Name = "presentbtn";
-            this.presentbtn.Size = new System.Drawing.Size(107, 37);
+            this.presentbtn.Size = new System.Drawing.Size(112, 30);
             this.presentbtn.TabIndex = 3;
             this.presentbtn.Text = "Current";
             this.presentbtn.UseVisualStyleBackColor = false;
@@ -73,9 +79,11 @@
             this.Addbtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.Addbtn.FlatAppearance.BorderSize = 0;
             this.Addbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Addbtn.Location = new System.Drawing.Point(904, 32);
+            this.Addbtn.Font = new System.Drawing.Font("Microsoft PhagsPa", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Addbtn.Location = new System.Drawing.Point(1183, 31);
+            this.Addbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Addbtn.Name = "Addbtn";
-            this.Addbtn.Size = new System.Drawing.Size(182, 37);
+            this.Addbtn.Size = new System.Drawing.Size(162, 30);
             this.Addbtn.TabIndex = 4;
             this.Addbtn.Text = "New Order";
             this.Addbtn.UseVisualStyleBackColor = false;
@@ -83,15 +91,16 @@
             // 
             // AC_Orders
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(1600, 868);
+            this.ClientSize = new System.Drawing.Size(1422, 694);
             this.Controls.Add(this.Addbtn);
             this.Controls.Add(this.presentbtn);
             this.Controls.Add(this.donebtn);
             this.Controls.Add(this.mum);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AC_Orders";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

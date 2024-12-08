@@ -390,6 +390,16 @@ namespace Group_5.Properties
         {
 
         }
+
+        private void txtname_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtaddr_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

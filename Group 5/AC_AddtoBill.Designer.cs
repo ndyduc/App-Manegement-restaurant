@@ -51,7 +51,7 @@
             this.imgfood.Location = new System.Drawing.Point(0, 0);
             this.imgfood.Margin = new System.Windows.Forms.Padding(0);
             this.imgfood.Name = "imgfood";
-            this.imgfood.Size = new System.Drawing.Size(300, 300);
+            this.imgfood.Size = new System.Drawing.Size(267, 240);
             this.imgfood.TabIndex = 0;
             this.imgfood.TabStop = false;
             // 
@@ -62,10 +62,10 @@
             this.exitbtn.FlatAppearance.BorderSize = 0;
             this.exitbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitbtn.Font = new System.Drawing.Font("Calibri Light", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitbtn.Location = new System.Drawing.Point(736, 0);
+            this.exitbtn.Location = new System.Drawing.Point(654, 0);
             this.exitbtn.Margin = new System.Windows.Forms.Padding(0);
             this.exitbtn.Name = "exitbtn";
-            this.exitbtn.Size = new System.Drawing.Size(63, 66);
+            this.exitbtn.Size = new System.Drawing.Size(56, 53);
             this.exitbtn.TabIndex = 1;
             this.exitbtn.Text = "X";
             this.exitbtn.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -78,9 +78,10 @@
             this.lessbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lessbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lessbtn.ForeColor = System.Drawing.Color.Maroon;
-            this.lessbtn.Location = new System.Drawing.Point(65, 359);
+            this.lessbtn.Location = new System.Drawing.Point(58, 287);
+            this.lessbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lessbtn.Name = "lessbtn";
-            this.lessbtn.Size = new System.Drawing.Size(40, 40);
+            this.lessbtn.Size = new System.Drawing.Size(36, 32);
             this.lessbtn.TabIndex = 3;
             this.lessbtn.Text = "-";
             this.lessbtn.UseVisualStyleBackColor = true;
@@ -90,9 +91,9 @@
             // 
             this.txt_amount.AutoSize = true;
             this.txt_amount.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_amount.Location = new System.Drawing.Point(125, 359);
+            this.txt_amount.Location = new System.Drawing.Point(111, 287);
             this.txt_amount.Name = "txt_amount";
-            this.txt_amount.Size = new System.Drawing.Size(33, 37);
+            this.txt_amount.Size = new System.Drawing.Size(29, 31);
             this.txt_amount.TabIndex = 5;
             this.txt_amount.Text = "1";
             // 
@@ -102,9 +103,10 @@
             this.morebtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.morebtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.morebtn.ForeColor = System.Drawing.Color.Maroon;
-            this.morebtn.Location = new System.Drawing.Point(192, 359);
+            this.morebtn.Location = new System.Drawing.Point(171, 287);
+            this.morebtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.morebtn.Name = "morebtn";
-            this.morebtn.Size = new System.Drawing.Size(40, 40);
+            this.morebtn.Size = new System.Drawing.Size(36, 32);
             this.morebtn.TabIndex = 6;
             this.morebtn.Text = "+";
             this.morebtn.UseVisualStyleBackColor = true;
@@ -113,27 +115,28 @@
             // bill_here
             // 
             this.bill_here.FormattingEnabled = true;
-            this.bill_here.Location = new System.Drawing.Point(540, 19);
+            this.bill_here.Location = new System.Drawing.Point(480, 15);
+            this.bill_here.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bill_here.Name = "bill_here";
-            this.bill_here.Size = new System.Drawing.Size(121, 28);
+            this.bill_here.Size = new System.Drawing.Size(108, 24);
             this.bill_here.TabIndex = 7;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(315, 15);
+            this.label2.Location = new System.Drawing.Point(280, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 29);
+            this.label2.Size = new System.Drawing.Size(0, 25);
             this.label2.TabIndex = 8;
             // 
             // txt_name
             // 
             this.txt_name.AutoSize = true;
             this.txt_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_name.Location = new System.Drawing.Point(325, 55);
+            this.txt_name.Location = new System.Drawing.Point(289, 44);
             this.txt_name.Name = "txt_name";
-            this.txt_name.Size = new System.Drawing.Size(98, 40);
+            this.txt_name.Size = new System.Drawing.Size(83, 36);
             this.txt_name.TabIndex = 9;
             this.txt_name.Text = "label";
             // 
@@ -141,19 +144,19 @@
             // 
             this.txt_price.AutoSize = true;
             this.txt_price.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_price.Location = new System.Drawing.Point(643, 129);
+            this.txt_price.Location = new System.Drawing.Point(572, 103);
             this.txt_price.Name = "txt_price";
-            this.txt_price.Size = new System.Drawing.Size(69, 29);
+            this.txt_price.Size = new System.Drawing.Size(56, 25);
             this.txt_price.TabIndex = 11;
             this.txt_price.Text = "Price";
             // 
             // txt_note
             // 
             this.txt_note.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txt_note.Location = new System.Drawing.Point(332, 232);
+            this.txt_note.Location = new System.Drawing.Point(295, 186);
             this.txt_note.Margin = new System.Windows.Forms.Padding(0);
             this.txt_note.Name = "txt_note";
-            this.txt_note.Size = new System.Drawing.Size(380, 68);
+            this.txt_note.Size = new System.Drawing.Size(338, 55);
             this.txt_note.TabIndex = 12;
             this.txt_note.Text = "";
             // 
@@ -161,37 +164,39 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(303, 191);
+            this.label5.Location = new System.Drawing.Point(290, 152);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 32);
+            this.label5.Size = new System.Drawing.Size(83, 29);
             this.label5.TabIndex = 13;
             this.label5.Text = "Note :";
             // 
             // txt_description
             // 
             this.txt_description.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_description.Location = new System.Drawing.Point(332, 98);
+            this.txt_description.Location = new System.Drawing.Point(295, 78);
+            this.txt_description.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_description.Multiline = true;
             this.txt_description.Name = "txt_description";
-            this.txt_description.Size = new System.Drawing.Size(277, 90);
+            this.txt_description.Size = new System.Drawing.Size(246, 72);
             this.txt_description.TabIndex = 14;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Group_5.Properties.Resources.Border;
-            this.pictureBox1.Location = new System.Drawing.Point(37, 341);
+            this.pictureBox1.Location = new System.Drawing.Point(33, 273);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(235, 80);
+            this.pictureBox1.Size = new System.Drawing.Size(209, 64);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 15;
             this.pictureBox1.TabStop = false;
             // 
             // AC_AddtoBill
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(711, 360);
             this.Controls.Add(this.morebtn);
             this.Controls.Add(this.txt_amount);
             this.Controls.Add(this.lessbtn);
@@ -206,6 +211,7 @@
             this.Controls.Add(this.exitbtn);
             this.Controls.Add(this.imgfood);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AC_AddtoBill";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

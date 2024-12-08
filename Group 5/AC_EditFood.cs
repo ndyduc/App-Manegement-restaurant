@@ -177,5 +177,15 @@ namespace Group_5
                 MessageBox.Show("Error updating food: " + ex.Message);
             }
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
