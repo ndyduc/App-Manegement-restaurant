@@ -89,7 +89,7 @@ namespace Group_5
             Label nameLabel = CreateLabel(item.Name, new Point(10, 210));
             Label priceLabel = CreateLabel($"Price: {item.Price}", new Point(50, 230));
             Label descriptionLabel = CreateLabel(item.Description, new Point(10, 250));
-              // Cập nhật vị trí để không tràn
+            // Cập nhật vị trí để không tràn
 
             menuPanel.Controls.Add(pictureBox);
             menuPanel.Controls.Add(nameLabel);
@@ -108,8 +108,8 @@ namespace Group_5
                 menuPanel.Controls.Add(deleteButton);
 
                 int totalHeight = pictureBox.Height + nameLabel.Height + 10 + priceLabel.Height + 10 + descriptionLabel.Height + 50; // Cộng thêm khoảng cách cho nút
-                menuPanel.Height = totalHeight; 
-                
+                menuPanel.Height = totalHeight;
+
             }
             else
             {
@@ -149,34 +149,25 @@ namespace Group_5
             {
                 try
                 {
-                    if (File.Exists(imageUrl)) // Kiểm tra nếu là đường dẫn cục bộ
+                    using (var httpClient = new System.Net.Http.HttpClient())
                     {
-                        using (var stream = new FileStream(imageUrl, FileMode.Open, FileAccess.Read))
+                        var imageData = await httpClient.GetByteArrayAsync(imageUrl); // Tải dữ liệu ảnh bất đồng bộ
+                        using (var stream = new System.IO.MemoryStream(imageData))
                         {
-                            pictureBox.Image = Image.FromStream(stream); // Hiển thị ảnh nguyên bản
-                        }
-                    }
-                    else
-                    {
-                        using (var httpClient = new System.Net.Http.HttpClient())
-                        {
-                            var imageData = await httpClient.GetByteArrayAsync(imageUrl); // Tải dữ liệu ảnh bất đồng bộ
-                            using (var stream = new MemoryStream(imageData))
-                            {
-                                pictureBox.Image = Image.FromStream(stream); // Hiển thị ảnh nguyên bản
-                            }
+                            Image originalImage = Image.FromStream(stream); // Tạo ảnh từ dữ liệu
+                            Image croppedImage = CropImageToSquare(originalImage); // Cắt ảnh thành hình vuông
+                            pictureBox.Image = croppedImage; // Gán ảnh đã cắt vào PictureBox
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    MessageBox.Show($"Error loading image: {ex.Message}", "Image Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    pictureBox.Image = Properties.Resources.noimg; // Hiển thị ảnh mặc định khi lỗi
+                    pictureBox.Image = Properties.Resources.noimg; // Nếu tải ảnh lỗi, hiển thị ảnh mặc định
                 }
             }
             else
             {
-                pictureBox.Image = Properties.Resources.noimg; // Hiển thị ảnh mặc định khi không có URL
+                pictureBox.Image = Properties.Resources.noimg; // Nếu không có URL, hiển thị ảnh mặc định
             }
         }
 

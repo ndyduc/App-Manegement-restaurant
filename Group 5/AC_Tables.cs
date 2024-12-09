@@ -60,8 +60,7 @@ namespace Group_5
 
 
                 // Thêm hình ảnh
-                Image originalImage = Image.FromFile("C:\\Users\\admin\\OneDrive\\Hình ảnh\\anhban.png"); // Đường dẫn đến hình ảnh
-
+                Image originalImage = Image.FromFile("C:\\Users\\Hieu Nguyen\\Downloads\\meo.png"); // Đường dẫn đến
                 // Tính toán kích thước mới cho hình ảnh 
                 int newWidth = (int)(btn.Width * 4);
                 int newHeight = (int)(btn.Height * 10);

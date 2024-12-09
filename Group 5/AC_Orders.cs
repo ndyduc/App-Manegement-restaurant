@@ -68,6 +68,13 @@ namespace Group_5
 
         }
 
+        private void Addbtn_Click(object sender, EventArgs e)
+        {
+            int id_bill = create_item();
+            home.Set_bill(id_bill);
+
+
+        }
         public void reload(int status)
         {
             using (var context = new DataClasses1DataContext())
@@ -119,12 +126,6 @@ namespace Group_5
             }
         }
 
-        private void Addbtn_Click(object sender, EventArgs e)
-        {
-            int id_bill = create_item();
-            home.Set_bill(id_bill);
-
-        }
 
         private Panel Create_Item(Order order)
         {

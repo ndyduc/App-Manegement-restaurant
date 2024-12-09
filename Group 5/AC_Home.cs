@@ -146,8 +146,8 @@ namespace Group_5
 
         public void Set_bill(int where)
         {
-            billwhere.DataSource = null;
-            reloadbill(billwhere);
+            billwhere.DataSource = null; // Đặt lại dữ liệu cũ
+            reloadbill(billwhere); // Nạp lại dữ liệu mới
 
             ismanage = false;
             if (menuForm == null || menuForm.IsDisposed)
@@ -156,9 +156,21 @@ namespace Group_5
             }
             Shareds.GeneralFunct.ShowFormInPanel(menuForm, panel);
             menuForm.RefreshMenuItems("Bao", ismanage);
+            billwhere.BindingContext = new BindingContext();
+            billwhere.DisplayMember = "Name";    // Hiển thị tên
+            billwhere.ValueMember = "ID";        // Giá trị là ID
 
-            billwhere.SelectedValue = where;
+            // Tìm mục mới nhất trong dữ liệu
+            var latestOrder = billwhere.Items.Cast<Order>().OrderByDescending(o => o.Time).FirstOrDefault();
+
+            if (latestOrder != null)
+            {
+                billwhere.SelectedValue = latestOrder.ID; // Chọn mục mới nhất
+            }
+            billwhere.Refresh();
+
         }
+
 
         public void reloadbill(System.Windows.Forms.ComboBox billwhere)
         {
